@@ -132,7 +132,14 @@ public class PlayerMovement : MonoBehaviour, IMovingAnimatable
                 desiredDirection = Vector3.ProjectOnPlane(mainCamera.transform.forward, Vector3.up);
                 break;
             case OrientationMode.FaceToTarget:
-                desiredDirection = Vector3.ProjectOnPlane(target.position - transform.position, Vector3.up);
+                if (target != null)
+                {
+                    desiredDirection = Vector3.ProjectOnPlane(target.position - transform.position, Vector3.up);
+                }
+                else
+                {
+                    desiredDirection = Vector3.ProjectOnPlane(mainCamera.transform.forward, Vector3.up);
+                }
                 break;
         }
 
@@ -169,6 +176,7 @@ public class PlayerMovement : MonoBehaviour, IMovingAnimatable
         rawStickValue = Vector3.forward * stickValue.y + Vector3.right * stickValue.x;
     }
     #endregion
+
 
     public Transform GetTransform()
     {

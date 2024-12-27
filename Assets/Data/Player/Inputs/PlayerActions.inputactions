@@ -174,56 +174,63 @@
             "actions": [
                 {
                     "name": "Look",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "605235e8-09c6-4464-b718-5405a1477f83",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Aim",
+                    "type": "Value",
+                    "id": "0200492a-4cae-46a3-b04e-e8ee163d3195",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "NextTarget",
+                    "type": "Button",
+                    "id": "66165fcf-9424-4d4f-a1c2-5dfbb42d4a58",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
-                    "name": "1D Axis",
-                    "id": "3c80dfb9-cf82-4183-88b4-9cc7f19587e8",
-                    "path": "1DAxis",
+                    "name": "",
+                    "id": "9f1fcbc2-4c62-4726-b6ac-6ac0e6cebcba",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Look",
-                    "isComposite": true,
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Negative",
-                    "id": "15f89788-1a83-49b0-be84-ad6bb8174a4b",
-                    "path": "<Keyboard>/q",
+                    "name": "",
+                    "id": "4412f229-facf-445a-95a4-4f8555f8dc77",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Look",
+                    "action": "NextTarget",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Positive",
-                    "id": "e75bbc66-a98b-4dad-855d-f4ba420ba6c3",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "650dfd43-51c3-43c6-bfed-89a60635b429",
-                    "path": "<Gamepad>/rightStick/x",
+                    "id": "1ff3204a-c2c6-49ab-95f1-6a6b98834702",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Look",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

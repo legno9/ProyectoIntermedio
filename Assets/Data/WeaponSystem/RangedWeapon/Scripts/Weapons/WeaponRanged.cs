@@ -36,7 +36,7 @@ public class WeaponRanged : WeaponBase
 
     private void Shoot()
     {
-        Instantiate(muzzleFlash, barrels[0].transform.position, barrels[0].transform.rotation, barrels[0].transform);
+        //Instantiate(muzzleFlash, barrels[0].transform.position, barrels[0].transform.rotation, barrels[0].transform);
 
         foreach (BarrelBase barrel in barrels)
         {
