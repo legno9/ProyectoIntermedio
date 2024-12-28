@@ -29,6 +29,11 @@ public class EntityWeaponManager : MonoBehaviour
         return currentWeapon != -1 ? weapons[currentWeapon] : null;
     }
 
+    public bool GetCurrentWeaponIsRanged()
+    {
+        return currentWeapon != -1 ? weapons[currentWeapon] is WeaponRanged : false;
+    }
+
     public float GetCurrentWeaponCooldown()
     {
         return currentWeapon != -1 ? weapons[currentWeapon].GetCurrentCooldown() : 1f;
@@ -53,6 +58,7 @@ public class EntityWeaponManager : MonoBehaviour
         foreach (AnimationEventForwarder var in GetComponentsInChildren<AnimationEventForwarder>())
         {
             var.OnMeleeAttackEvent.AddListener(OnAttackEvent);
+            var.OnReloadFinishedEvent.AddListener(OnReloadEvent);
         }
     }
 
@@ -69,6 +75,26 @@ public class EntityWeaponManager : MonoBehaviour
         weaponsParent.GetComponentInChildren<WeaponMelee>().ActivateHitCollider();
     }
 
+    private void OnReloadEvent()
+    {
+        if (currentWeapon != -1 && weapons[currentWeapon] is WeaponRanged)
+        {
+            ((WeaponRanged)weapons[currentWeapon]).Reload();
+        }
+    }
+
+    public void RecoverWeaponAmmo(WeaponType weaponType, int amount)
+    {
+        foreach (WeaponBase weapon in weapons)
+        {
+            if (weapon is WeaponRanged && ((WeaponRanged)weapon).GetWeaponType() == weaponType)
+            {
+                ((WeaponRanged)weapon).RecoverAmmo(amount);
+                break;
+            }
+        }
+    }
+
     public bool PerformAttack()
     {
         if (currentWeapon != -1)
@@ -77,6 +103,33 @@ public class EntityWeaponManager : MonoBehaviour
             {
                 animator.SetTrigger("Attack");
                 return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool PerformReload()
+    {
+        if (currentWeapon != -1)
+        {
+            if (weapons[currentWeapon] is WeaponRanged)
+            {
+                if (((WeaponRanged)weapons[currentWeapon]).CanReload())
+                {
+                    animator.SetTrigger("Reload");
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {

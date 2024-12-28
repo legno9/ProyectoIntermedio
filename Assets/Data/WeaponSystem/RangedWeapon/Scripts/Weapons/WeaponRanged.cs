@@ -17,6 +17,21 @@ public class WeaponRanged : WeaponBase
     //[SerializeField] private bool debugCancelBurst;
 
     private BarrelBase[] barrels;
+    [SerializeField] private int maxAmmo = 25;
+    private int currentAmmo;
+    [SerializeField] private int maxReserveAmmo = 100;
+    private int currentReserveAmmo = 0;
+    [SerializeField] private WeaponType weaponType = WeaponType.Rifle;
+
+    public WeaponType GetWeaponType()
+    {
+        return weaponType;
+    }
+
+    public bool CanReload()
+    {
+        return currentReserveAmmo > 0 && currentAmmo < maxAmmo;
+    }
 
     private void OnValidate()
     {
@@ -31,6 +46,8 @@ public class WeaponRanged : WeaponBase
     {
         base.Init();
         barrels = GetComponentsInChildren<BarrelBase>();
+        currentAmmo = maxAmmo;
+        currentReserveAmmo = maxReserveAmmo;
         lastAttackTime = Time.time - 1f / attacksPerSecond;
     }
 
@@ -43,12 +60,13 @@ public class WeaponRanged : WeaponBase
             barrel.Shoot();
         }
 
+        currentAmmo--;
         //shootSounds.PlayAtPointRandom(transform.position);
     }
 
     public override bool PerformAttack()
     {
-        if (Time.time - lastAttackTime > 1f / attacksPerSecond)
+        if (Time.time - lastAttackTime > 1f / attacksPerSecond && currentAmmo > 0)
         {
             lastAttackTime = Time.time;
             Shoot();
@@ -59,4 +77,23 @@ public class WeaponRanged : WeaponBase
             return false;
         }
     }
+
+    public void Reload()
+    {
+        int ammoRecovered = Mathf.Min(maxAmmo - currentAmmo, currentReserveAmmo);
+        currentReserveAmmo -= ammoRecovered;
+        currentAmmo += ammoRecovered;
+    }
+
+    public void RecoverAmmo(int ammo)
+    {
+        currentReserveAmmo = Mathf.Min(currentReserveAmmo + ammo, maxReserveAmmo);
+    }
+}
+
+public enum WeaponType
+{
+    Rifle,
+    Shotgun,
+    GrenadeLauncher
 }

@@ -20,9 +20,11 @@ public class CameraController : MonoBehaviour
     [SerializeField] LayerMask lockOnLayer;
     [SerializeField] float lockOnRange;
     [SerializeField] InputActionReference cameraLook;
-    private bool lockedOn = false;
+    private bool isAiming = false;
+    private bool isLockedOn = false;
 
     [SerializeField] Transform lookAtTransform;
+    [SerializeField] Transform notAimingLookAtTransform;
     private Transform currentLockOnTransform;
     private Transform newLockOnTransform;
     private bool isSwitchingLockOnTarget = false;
@@ -30,18 +32,26 @@ public class CameraController : MonoBehaviour
     private float elapsedTime = 0f; // Tracks elapsed time for the transition
     private Vector3 startPosition; // Start position for the transition
 
+    [SerializeField] private EntityWeaponManager playerWeaponManager;
+
     private void Awake()
     {
         cinemachineCamera = GetComponent<CinemachineCamera>();
         orbitalFollow = GetComponent<CinemachineOrbitalFollow>();
+        lookAtTransform.position = notAimingLookAtTransform.position;
     }
 
     private void Update()
     {
-        if (lockedOn)
+        if (isAiming && !playerWeaponManager.GetCurrentWeaponIsRanged())
+        {
+            DisableAiming();
+        }
+
+        if (isLockedOn)
         {
             Vector3 targetDirection = Vector3.ProjectOnPlane(cinemachineCamera.LookAt.position - transform.position, Vector3.up);
-            float angleToTarget = Vector3.Angle(Vector3.forward, targetDirection);
+            float angleToTarget = Vector3.SignedAngle(Vector3.forward, targetDirection, Vector3.up);
             orbitalFollow.HorizontalAxis.Value = angleToTarget;
         }
 
@@ -72,36 +82,56 @@ public class CameraController : MonoBehaviour
 
     private void OnAim(InputValue value)
     {
-        if (value.Get<float>() == 1)
+        if (playerWeaponManager.GetCurrentWeaponIsRanged())
         {
-            SearchTargets();
-            LockOnToNextTarget();
-
-            aimTransitionTween.Kill();
-            aimTransitionTween = DOTween.To(
-                () => orbitalFollow.VerticalAxis.Value,
-                (x) => orbitalFollow.VerticalAxis.Value = x,
-                -10f,
-                0.3f
-            );
+            if (value.Get<float>() == 1)
+            {
+                EnableAiming();
+            }
+            else
+            {
+                DisableAiming();
+            }
         }
-        else
-        {
-            DisableLockOn();
+    }
 
-            aimTransitionTween.Kill();
-            aimTransitionTween = DOTween.To(
-                () => orbitalFollow.VerticalAxis.Value,
-                (x) => orbitalFollow.VerticalAxis.Value = x,
-                20f,
-                0.3f
-            );
-        }
+    private void EnableAiming()
+    {
+        SearchTargets();
+        LockOnToNextTarget();
+
+        aimTransitionTween.Kill();
+        aimTransitionTween = DOTween.To(
+            () => orbitalFollow.VerticalAxis.Value,
+            (x) => orbitalFollow.VerticalAxis.Value = x,
+            -10f,
+            0.3f
+        );
+
+        isAiming = true;
+    }
+
+    private void DisableAiming()
+    {
+        DisableLockOn();
+
+        aimTransitionTween.Kill();
+        aimTransitionTween = DOTween.To(
+            () => orbitalFollow.VerticalAxis.Value,
+            (x) => orbitalFollow.VerticalAxis.Value = x,
+            20f,
+            0.3f
+        );
+
+        isAiming = false;
     }
 
     private void OnNextTarget(InputValue value)
     {
-        LockOnToNextTarget();
+        if (isAiming)
+        {
+            LockOnToNextTarget();
+        }
     }
 
     private void LockOnToNextTarget()
@@ -127,24 +157,26 @@ public class CameraController : MonoBehaviour
 
     private void LockOnToTarget(Transform target)
     {
-        if (target != currentLockOnTransform)
-        {
-            newLockOnTransform = target;
-            startPosition = lookAtTransform.position;
-            elapsedTime = 0f;
-            isSwitchingLockOnTarget = true;
-        }
+        newLockOnTransform = target;
+        startPosition = lookAtTransform.position;
+        elapsedTime = 0f;
+        isSwitchingLockOnTarget = true;
 
         cinemachineCamera.LookAt = lookAtTransform;
         cameraLook.action.Disable();
-        lockedOn = true;
+        isLockedOn = true;
     }
 
     private void DisableLockOn()
     {
+        newLockOnTransform = notAimingLookAtTransform;
+        startPosition = lookAtTransform.position;
+        elapsedTime = 0f;
+        isSwitchingLockOnTarget = true;
+
         cinemachineCamera.LookAt = objectOnShoulderTransform;
         cameraLook.action.Enable();
-        lockedOn = false;
+        isLockedOn = false;
     }
 
     private void SearchTargets()

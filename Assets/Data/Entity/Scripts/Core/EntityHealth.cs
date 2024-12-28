@@ -9,6 +9,10 @@ public class EntityHealth : MonoBehaviour
     //[SerializeField] private AudioClipList hurtSounds;
     //[SerializeField] private AudioClipList deathSounds;
 
+    [SerializeField] private float passiveRegenRate = 0f;
+    [SerializeField] private float passiveRegenDelay = 10f;
+    private float timeSinceLastDamage = 0f;
+
     [HideInInspector] public UnityEvent<float, float> OnHealthChanged; // current health and health change
     [HideInInspector] public UnityEvent OnDeath;
 
@@ -26,6 +30,7 @@ public class EntityHealth : MonoBehaviour
         {
             debugAplyLifeChange = false;
             OnHitWithDamage(debugLifeToSubtract);
+            timeSinceLastDamage = 0f;
         }
     }
     #endregion
@@ -47,6 +52,7 @@ public class EntityHealth : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
         OnHealthChanged?.Invoke(currentHealth, damage);
+        timeSinceLastDamage = 0f;
 
         if (Mathf.Sign(damage) == 1)
         {
@@ -63,5 +69,23 @@ public class EntityHealth : MonoBehaviour
     private void OnDisable()
     {
         hurtCollider.OnHitWithDamage.RemoveListener(OnHitWithDamage);
+    }
+
+    private void Update()
+    {
+        if (currentHealth < maxHealth)
+        {
+            timeSinceLastDamage += Time.deltaTime;
+            if (timeSinceLastDamage >= passiveRegenDelay)
+            {
+                RecoverHealth(passiveRegenRate * Time.deltaTime);
+            }
+        }
+    }
+
+    public void RecoverHealth(float amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+        OnHealthChanged?.Invoke(currentHealth, amount);
     }
 }

@@ -47,6 +47,14 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    private void OnReload(InputValue value)
+    {
+        if (value.Get<float>() == 1f)
+        {
+            weaponManager.PerformReload();
+        }
+    }
+
     private void OnNextPrevWeapon(InputValue value)
     {
         Vector2 readValue = value.Get<Vector2>();
