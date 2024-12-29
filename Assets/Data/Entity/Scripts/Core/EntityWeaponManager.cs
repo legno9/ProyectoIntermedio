@@ -1,9 +1,8 @@
 using DG.Tweening;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.Events;
-using static UnityEngine.Rendering.DebugUI;
 
 public class EntityWeaponManager : MonoBehaviour
 {
@@ -12,11 +11,8 @@ public class EntityWeaponManager : MonoBehaviour
     [SerializeField] private int startingWeaponIndex = -1;
 
     [Header("IK")]
-    [SerializeField] private Rig aimRig;
-    [SerializeField] private float idleOffset = 0f;
-    [SerializeField] private float inCombatStanceOffset = 39f;
-    [SerializeField] private float meleeAttackOffset = -10f;
-    [SerializeField] private float meleeOffsetDelay = 0.75f;
+    [SerializeField] private List<Rig> aimRigs = new();
+
 
     private Animator animator;
     private RuntimeAnimatorController originalAnimatorController;
@@ -212,38 +208,5 @@ public class EntityWeaponManager : MonoBehaviour
 
             OnWeaponSwitched?.Invoke(null);
         }
-
-        AnimateAimRigWeight();
-    }
-
-    private void AnimateAimRigWeight()
-    {
-        float offset = 0;
-
-        if (currentWeapon != -1)
-        {
-            if (animator.GetBool("IsInCombatStance"))
-            {
-                offset = inCombatStanceOffset;
-            }
-            else
-            {
-                offset = idleOffset;
-            }
-        }
-
-        DOTween.To(
-            () => aimRig.GetComponentInChildren<MultiAimConstraint>().data.offset,
-            (x) => aimRig.GetComponentInChildren<MultiAimConstraint>().data.offset = x,
-            Vector3.up * offset,
-            0.25f
-        );
-
-        DOTween.To(
-            () => aimRig.weight,
-            (x) => aimRig.weight = x,
-            (currentWeapon != -1) ? 1f : 0f,
-            0.25f
-        );
     }
 }

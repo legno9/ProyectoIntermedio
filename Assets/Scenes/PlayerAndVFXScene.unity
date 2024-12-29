@@ -234,30 +234,14 @@ PrefabInstance:
       propertyPath: aimTarget
       value: 
       objectReference: {fileID: 884536416}
-    - target: {fileID: 29289286426185549, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 65
-      objectReference: {fileID: 0}
     - target: {fileID: 33690216991154455, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: aimTarget
       value: 
       objectReference: {fileID: 884536416}
-    - target: {fileID: 33690216991154455, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 65
-      objectReference: {fileID: 0}
-    - target: {fileID: 99773177122612252, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 278969734049983351, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: aimTarget
       value: 
       objectReference: {fileID: 884536416}
-    - target: {fileID: 278969734049983351, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 65
-      objectReference: {fileID: 0}
     - target: {fileID: 306729063205521978, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -298,54 +282,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 321608087491359180, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 919919689610148849, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 2052241477}
-    - target: {fileID: 919919689610148849, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: stepSounds.audioClipList.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1994169246917040949, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: aimTarget
       value: 
       objectReference: {fileID: 884536416}
-    - target: {fileID: 1994169246917040949, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 65
-      objectReference: {fileID: 0}
     - target: {fileID: 2018033157379571729, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_Sources.Array.data[0].sourceTransform
       value: 
-      objectReference: {fileID: 2052241477}
+      objectReference: {fileID: 1561871396}
     - target: {fileID: 2320057812761865261, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_Sources.Array.data[0].sourceTransform
       value: 
-      objectReference: {fileID: 2052241477}
+      objectReference: {fileID: 1561871396}
     - target: {fileID: 2669963515653893964, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: aimTarget
       value: 
       objectReference: {fileID: 884536416}
-    - target: {fileID: 2669963515653893964, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 65
-      objectReference: {fileID: 0}
     - target: {fileID: 2750327240339345974, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: aimTarget
       value: 
       objectReference: {fileID: 884536416}
-    - target: {fileID: 2750327240339345974, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 65
-      objectReference: {fileID: 0}
     - target: {fileID: 2812488594251860946, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_Sources.Array.data[0].sourceTransform
       value: 
-      objectReference: {fileID: 2052241477}
+      objectReference: {fileID: 1561871396}
     - target: {fileID: 2976279609769917121, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: aimTarget
       value: 
@@ -370,22 +334,10 @@ PrefabInstance:
       propertyPath: aimTarget
       value: 
       objectReference: {fileID: 884536416}
-    - target: {fileID: 3455821310910884460, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 65
-      objectReference: {fileID: 0}
-    - target: {fileID: 3704515703135486511, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: m_Name
-      value: NotAimingLookAtObject
-      objectReference: {fileID: 0}
     - target: {fileID: 4396573580107028344, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: aimTarget
       value: 
       objectReference: {fileID: 884536416}
-    - target: {fileID: 4396573580107028344, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 65
-      objectReference: {fileID: 0}
     - target: {fileID: 5084905819732871175, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.5535833
@@ -410,10 +362,6 @@ PrefabInstance:
       propertyPath: aimTarget
       value: 
       objectReference: {fileID: 884536416}
-    - target: {fileID: 5744005562024408874, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 65
-      objectReference: {fileID: 0}
     - target: {fileID: 5901835073906216813, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.5535833
@@ -434,14 +382,6 @@ PrefabInstance:
       propertyPath: aimTarget
       value: 
       objectReference: {fileID: 884536416}
-    - target: {fileID: 6076431381460487245, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 65
-      objectReference: {fileID: 0}
-    - target: {fileID: 6364051111190115827, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: m_Name
-      value: ObjectsOnShoulderRotator
-      objectReference: {fileID: 0}
     - target: {fileID: 6510753381445579809, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: cam1
       value: 
@@ -450,10 +390,14 @@ PrefabInstance:
       propertyPath: cam2
       value: 
       objectReference: {fileID: 1207728817}
-    - target: {fileID: 6510753381445579809, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: cinemachineOrbitalFollow
+    - target: {fileID: 7672550399624617028, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
+      propertyPath: 'aimRigs.Array.data[1]'
       value: 
-      objectReference: {fileID: 1534019674}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7672550399624617028, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
+      propertyPath: 'aimRigs.Array.data[2]'
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8377933398584388980, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_Name
       value: PlayerController
@@ -462,14 +406,6 @@ PrefabInstance:
       propertyPath: aimTarget
       value: 
       objectReference: {fileID: 884536416}
-    - target: {fileID: 8816191659191880192, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 65
-      objectReference: {fileID: 0}
-    - target: {fileID: 8967209302572879267, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
-      propertyPath: m_Name
-      value: CameraOrbitCenter
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5845,6 +5781,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 390906708}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &417724563 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4680027881350463998, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
+  m_PrefabInstance: {fileID: 161804685}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &452588391
 GameObject:
   m_ObjectHideFlags: 0
@@ -6272,6 +6219,8 @@ MonoBehaviour:
   lookAtTransform: {fileID: 2052241477}
   notAimingLookAtTransform: {fileID: 976609280}
   transitionTime: 0.25
+  aimForwardRig: {fileID: 417724563}
+  objectInFrontHolder: {fileID: 1589504624}
 --- !u!114 &722218156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7514,6 +7463,16 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
+--- !u!4 &1561871396 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2624754931959475868, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
+  m_PrefabInstance: {fileID: 161804685}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1589504624 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1007410678122766654, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
+  m_PrefabInstance: {fileID: 161804685}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1607040074
 GameObject:
   m_ObjectHideFlags: 0

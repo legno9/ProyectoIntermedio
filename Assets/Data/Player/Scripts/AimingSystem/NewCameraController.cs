@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 using static System.TimeZoneInfo;
+using static UnityEngine.Rendering.DebugUI;
 
 [RequireComponent(typeof(PlayerInput))]
 public class NewCameraController : MonoBehaviour
@@ -35,6 +37,12 @@ public class NewCameraController : MonoBehaviour
     [SerializeField] private float transitionTime = 0.25f;
     private float elapsedTime = 0f;
     private Vector3 startPosition;
+
+    [Header("Rigs")]
+    [SerializeField] private Rig aimForwardRig;
+    [SerializeField] private Transform objectInFrontHolder;
+    //[SerializeField] private Rig aimAboveRig;
+    //[SerializeField] private Rig aimBelowRig;
 
     private void Awake()
     {
@@ -78,6 +86,23 @@ public class NewCameraController : MonoBehaviour
         {
             // Follow the current target's position
             lookAtTransform.position = currentLockOnTransform.position;
+        }
+
+        if (playerWeaponManager.GetCurrentWeaponIsRanged())
+        {
+            aimForwardRig.weight = 1;
+            float value = currentOrbitalFollow.VerticalAxis.Value;
+
+            objectInFrontHolder.localEulerAngles = new Vector3(
+                Mathf.Lerp(-37, 27, Mathf.Clamp01((value - -10) / (45 - -10))),
+                objectInFrontHolder.localRotation.y,
+                objectInFrontHolder.localRotation.z
+            );
+        }
+        else
+        {
+            aimForwardRig.weight = 0;
+            objectInFrontHolder.rotation = Quaternion.identity;
         }
     }
 
@@ -145,6 +170,18 @@ public class NewCameraController : MonoBehaviour
 
             if (lockOnTargets.TryDequeue(out var newTarget))
             {
+                while (newTarget == currentLockOnTransform)
+                {
+                    if (lockOnTargets.TryDequeue(out newTarget))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
                 LockOnToTarget(newTarget);
             }
             else

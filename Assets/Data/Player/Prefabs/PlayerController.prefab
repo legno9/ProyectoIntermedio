@@ -51,7 +51,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 65
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &516478738015132116
 GameObject:
@@ -80,7 +80,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516478738015132116}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.089573495, y: 0.05570104, z: 0.00501739, w: 0.9944088}
+  m_LocalRotation: {x: -0.02753807, y: 0.7354908, z: 0.029947849, w: 0.6763121}
   m_LocalPosition: {x: 0.2204082, y: 0.58264476, z: -0.10486251}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -276,8 +276,40 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 65
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
+--- !u!1 &1461699747004039926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1007410678122766654}
+  m_Layer: 0
+  m_Name: ObjectInFrontHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1007410678122766654
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461699747004039926}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2624754931959475868}
+  m_Father: {fileID: 306729063205521978}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1594885860920357769
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +337,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594885860920357769}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.089574225, y: 0.055701036, z: 0.005017431, w: 0.9944087}
+  m_LocalRotation: {x: -0.027538652, y: 0.7354907, z: 0.029948331, w: 0.6763122}
   m_LocalPosition: {x: 0.22040814, y: 0.5826447, z: -0.10486263}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -607,7 +639,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 65
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &2887261491465516758
 GameObject:
@@ -734,7 +766,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 65
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &3613889289697229348
 GameObject:
@@ -787,7 +819,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 65
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &3681649056636612879
 GameObject:
@@ -872,7 +904,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 65
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &3704515703135486511
 GameObject:
@@ -886,7 +918,7 @@ GameObject:
   - component: {fileID: 8676570593869120996}
   - component: {fileID: 2615417101368903787}
   m_Layer: 0
-  m_Name: ObjectOnShoulder (1)
+  m_Name: NotAimingLookAtObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -901,7 +933,7 @@ Transform:
   m_GameObject: {fileID: 3704515703135486511}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6, y: 0, z: 2.75}
+  m_LocalPosition: {x: 0.6, y: 0, z: 3}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1033,7 +1065,7 @@ MonoBehaviour:
       m_Item7:
         transform: {fileID: 0}
         weight: 0
-    m_Offset: {x: 0, y: 30, z: 0}
+    m_Offset: {x: 0, y: 39, z: 0}
     m_MinLimit: -180
     m_MaxLimit: 180
     m_AimAxis: 4
@@ -1097,7 +1129,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 65
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &4157676334081942760
 GameObject:
@@ -1264,7 +1296,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &4388299428241772961
 GameObject:
@@ -1293,7 +1325,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4388299428241772961}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.089573495, y: 0.05570104, z: 0.00501739, w: 0.9944088}
+  m_LocalRotation: {x: -0.02753807, y: 0.7354908, z: 0.029947849, w: 0.6763121}
   m_LocalPosition: {x: 0.2204082, y: 0.58264476, z: -0.10486251}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1425,7 +1457,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 65
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &4719051163148069407
 GameObject:
@@ -1563,7 +1595,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 65
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &6364051111190115827
 GameObject:
@@ -1576,7 +1608,7 @@ GameObject:
   - component: {fileID: 6195288708244580107}
   - component: {fileID: 6510753381445579809}
   m_Layer: 0
-  m_Name: ObjectOnShoulderRotator
+  m_Name: ObjectsOnShoulderRotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1611,7 +1643,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b25d1de6912464fb81418ce6fd7847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cinemachineOrbitalFollow: {fileID: 0}
+  cam1: {fileID: 0}
+  cam2: {fileID: 0}
 --- !u!1 &6898083446721829088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,7 +1696,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 65
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &7044600273272631463
 GameObject:
@@ -1676,7 +1709,7 @@ GameObject:
   - component: {fileID: 4182808155947734721}
   - component: {fileID: 4680027881350463998}
   m_Layer: 0
-  m_Name: AimRig
+  m_Name: AimForwardRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1881,12 +1914,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7720262015419530285}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: 5}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 306729063205521978}
+  m_Father: {fileID: 1007410678122766654}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8145717900158661123
 GameObject:
@@ -2082,8 +2115,8 @@ Transform:
   m_Children:
   - {fileID: 4122685317995664211}
   - {fileID: 4893981998144629969}
-  - {fileID: 2624754931959475868}
   - {fileID: 6195288708244580107}
+  - {fileID: 1007410678122766654}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7026766374517521600
@@ -2173,6 +2206,10 @@ MonoBehaviour:
   maxSpeed: 5
   decelerationFactor: 10
   timePerStep: 0.3
+  stepSounds:
+    volume: 1
+    pitch: 1
+    audioClipList: []
   orientationMode: 2
   angularVelocity: 360
   target: {fileID: 0}
@@ -2214,11 +2251,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponsParent: {fileID: 2522317476320466292}
   startingWeaponIndex: -1
-  aimRig: {fileID: 4680027881350463998}
-  idleOffset: 0
-  inCombatStanceOffset: 39
-  meleeAttackOffset: -25
-  meleeOffsetDelay: 0.6
+  aimRigs:
+  - {fileID: 4680027881350463998}
+  - {fileID: 0}
+  - {fileID: 0}
   OnWeaponSwitched:
     m_PersistentCalls:
       m_Calls: []
@@ -2292,7 +2328,7 @@ GameObject:
   - component: {fileID: 5903593818353539719}
   - component: {fileID: 99773177122612252}
   m_Layer: 0
-  m_Name: ObjectOnShoulder
+  m_Name: CameraOrbitCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
