@@ -17,6 +17,7 @@ public class WeaponRanged : WeaponBase
     //[SerializeField] private bool debugCancelBurst;
 
     private BarrelBase[] barrels;
+    [SerializeField] private bool infiniteAmmo = false;
     [SerializeField] private int maxAmmo = 25;
     private int currentAmmo;
     [SerializeField] private int maxReserveAmmo = 100;
@@ -60,7 +61,7 @@ public class WeaponRanged : WeaponBase
             barrel.Shoot();
         }
 
-        currentAmmo--;
+        if (!infiniteAmmo){ currentAmmo--; }
         //shootSounds.PlayAtPointRandom(transform.position);
     }
 

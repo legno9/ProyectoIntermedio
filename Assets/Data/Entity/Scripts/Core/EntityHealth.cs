@@ -17,7 +17,7 @@ public class EntityHealth : MonoBehaviour
     [HideInInspector] public UnityEvent OnDeath;
 
     #region Debug
-    [SerializeField] private float debugLifeToAdd = 0f;
+    // [SerializeField] private float debugLifeToAdd = 0f;
     [SerializeField] private float debugLifeToSubtract = 0f;
     [SerializeField] private bool debugAplyLifeChange;
 

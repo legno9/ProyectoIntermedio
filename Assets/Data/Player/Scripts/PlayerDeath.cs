@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerDeath : MonoBehaviour
 {
-    [SerializeField] private float delay = 5f;
+    // [SerializeField] private float delay = 5f;
 
     private void OnEnable()
     {
