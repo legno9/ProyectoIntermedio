@@ -4,26 +4,29 @@ using System.Linq;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.UI.Image;
+using static System.TimeZoneInfo;
 
-[DefaultExecutionOrder(-1)]
 [RequireComponent(typeof(PlayerInput))]
-public class CameraController : MonoBehaviour
+public class NewCameraController : MonoBehaviour
 {
-    private CinemachineCamera cinemachineCamera;
-    private CinemachineOrbitalFollow orbitalFollow;
-    private Tween aimTransitionTween;
+    [Header("Aim")]
+    [SerializeField] private CinemachineOrbitalFollow cam1;
+    [SerializeField] private CinemachineOrbitalFollow cam2;
+    private CinemachineOrbitalFollow currentOrbitalFollow;
+    private CinemachineCamera currentCam;
+    private Camera mainCamera;
+    [SerializeField] private EntityWeaponManager playerWeaponManager;
     private bool isAiming = false;
     public bool IsAiming => isAiming;
 
     [Header("Lock-On")]
-    private Queue<Transform> lockOnTargets = new();
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float lockOnRange;
     [SerializeField] private LayerMask lockOnLayer;
-    [SerializeField] private InputActionReference cameraLook;
+    private Queue<Transform> lockOnTargets = new();
     private bool isLockedOn = false;
 
+    [Header("Look At")]
     [SerializeField] private Transform lookAtTransform;
     [SerializeField] private Transform notAimingLookAtTransform;
     private Transform currentLockOnTransform;
@@ -33,42 +36,24 @@ public class CameraController : MonoBehaviour
     private float elapsedTime = 0f;
     private Vector3 startPosition;
 
-    [SerializeField] private EntityWeaponManager playerWeaponManager;
-
     private void Awake()
     {
-        cinemachineCamera = GetComponent<CinemachineCamera>();
-        cinemachineCamera.LookAt = lookAtTransform;
-        orbitalFollow = GetComponent<CinemachineOrbitalFollow>();
+        cam2.gameObject.SetActive(false);
+        currentOrbitalFollow = cam1;
+        currentCam = cam1.GetComponent<CinemachineCamera>();
+        mainCamera = Camera.main;
+
         lookAtTransform.position = notAimingLookAtTransform.position;
         currentLockOnTransform = notAimingLookAtTransform;
     }
 
-    private void OnEnable()
-    {
-        playerWeaponManager.OnWeaponSwitched.AddListener(DisableAimingIfWeaponIsNotRanged);
-    }
-
-    private void DisableAimingIfWeaponIsNotRanged(WeaponBase weapon)
-    {
-        if (weapon is not WeaponRanged && isAiming)
-        {
-            DisableAiming();
-        }
-    }
-
-    private void OnDisable()
-    {
-        playerWeaponManager.OnWeaponSwitched.RemoveListener(DisableAimingIfWeaponIsNotRanged);
-    }
-
-    private void Update()
+    private void LateUpdate()
     {
         if (isLockedOn)
         {
-            Vector3 targetDirection = Vector3.ProjectOnPlane(cinemachineCamera.LookAt.position - transform.position, Vector3.up);
+            Vector3 targetDirection = Vector3.ProjectOnPlane(lookAtTransform.position - mainCamera.transform.position, Vector3.up);
             float angleToTarget = Vector3.SignedAngle(Vector3.forward, targetDirection, Vector3.up);
-            orbitalFollow.HorizontalAxis.Value = angleToTarget;
+            currentOrbitalFollow.HorizontalAxis.Value = angleToTarget;
         }
 
         if (isSwitchingLockOnTarget)
@@ -113,16 +98,15 @@ public class CameraController : MonoBehaviour
 
     private void EnableAiming()
     {
+        cam1.gameObject.SetActive(false);
+        cam2.gameObject.SetActive(true);
+        cam2.HorizontalAxis.Value = cam1.HorizontalAxis.Value;
+        cam2.VerticalAxis.Value = cam1.VerticalAxis.Value;
+        currentOrbitalFollow = cam2;
+        currentCam = cam2.GetComponent<CinemachineCamera>();
+
         SearchTargets();
         LockOnToNextTarget();
-
-        aimTransitionTween.Kill();
-        aimTransitionTween = DOTween.To(
-            () => orbitalFollow.VerticalAxis.Value,
-            (x) => orbitalFollow.VerticalAxis.Value = x,
-            -10f,
-            0.3f
-        );
 
         isAiming = true;
     }
@@ -131,13 +115,12 @@ public class CameraController : MonoBehaviour
     {
         DisableLockOn();
 
-        aimTransitionTween.Kill();
-        aimTransitionTween = DOTween.To(
-            () => orbitalFollow.VerticalAxis.Value,
-            (x) => orbitalFollow.VerticalAxis.Value = x,
-            20f,
-            0.3f
-        );
+        cam1.gameObject.SetActive(true);
+        cam2.gameObject.SetActive(false);
+        cam1.HorizontalAxis.Value = cam2.HorizontalAxis.Value;
+        cam1.VerticalAxis.Value = cam2.VerticalAxis.Value;
+        currentOrbitalFollow = cam1;
+        currentCam = cam1.GetComponent<CinemachineCamera>();
 
         isAiming = false;
     }
@@ -176,9 +159,8 @@ public class CameraController : MonoBehaviour
         newLockOnTransform = target;
         startPosition = lookAtTransform.position;
         elapsedTime = 0f;
-        isSwitchingLockOnTarget = true;
 
-        cameraLook.action.Disable();
+        isSwitchingLockOnTarget = true;
         isLockedOn = true;
     }
 
@@ -187,9 +169,8 @@ public class CameraController : MonoBehaviour
         newLockOnTransform = notAimingLookAtTransform;
         startPosition = lookAtTransform.position;
         elapsedTime = 0f;
-        isSwitchingLockOnTarget = true;
 
-        cameraLook.action.Enable();
+        isSwitchingLockOnTarget = true;
         isLockedOn = false;
     }
 

@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.Events;
 using static UnityEngine.Rendering.DebugUI;
 
 public class EntityWeaponManager : MonoBehaviour
@@ -18,11 +19,12 @@ public class EntityWeaponManager : MonoBehaviour
     [SerializeField] private float meleeOffsetDelay = 0.75f;
 
     private Animator animator;
-
     private RuntimeAnimatorController originalAnimatorController;
     private int currentWeapon = -1;
+    private WeaponBase[] weapons;
 
-    WeaponBase[] weapons;
+    private bool canReload = true;
+    public UnityEvent<WeaponBase> OnWeaponSwitched;
 
     public WeaponBase GetCurrentWeapon()
     {
@@ -80,6 +82,7 @@ public class EntityWeaponManager : MonoBehaviour
         if (currentWeapon != -1 && weapons[currentWeapon] is WeaponRanged)
         {
             ((WeaponRanged)weapons[currentWeapon]).Reload();
+            canReload = true;
         }
     }
 
@@ -102,6 +105,7 @@ public class EntityWeaponManager : MonoBehaviour
             if (weapons[currentWeapon].PerformAttack())
             {
                 animator.SetTrigger("Attack");
+                canReload = false;
                 return true;
             }
             else
@@ -167,6 +171,7 @@ public class EntityWeaponManager : MonoBehaviour
 
         if (weaponToSet != currentWeapon)
         {
+            canReload = true;
             SelectWeapon(weaponToSet);
         }
     }
@@ -196,12 +201,16 @@ public class EntityWeaponManager : MonoBehaviour
                 animator.SetBool("HasRifleEquipped", false);
                 animator.SetBool("HasKnifeEquipped", true);
             }
+
+            OnWeaponSwitched?.Invoke(weapons[currentWeapon]);
         }
         else
         {
             animator.runtimeAnimatorController = originalAnimatorController;
             animator.SetBool("HasRifleEquipped", false);
             animator.SetBool("HasKnifeEquipped", false);
+
+            OnWeaponSwitched?.Invoke(null);
         }
 
         AnimateAimRigWeight();

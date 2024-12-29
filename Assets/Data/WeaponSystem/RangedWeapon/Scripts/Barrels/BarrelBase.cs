@@ -7,6 +7,7 @@ public abstract class BarrelBase : MonoBehaviour
 
     [Header("Barrel Properties")]
     [SerializeField] protected float spread;
+    [SerializeField] protected Transform aimTarget;
 
     private void OnValidate()
     {

@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour, IMovingAnimatable
     [SerializeField] private float decelerationFactor = 10.0f;
     [SerializeField] private float timePerStep = 0.3f;
     private float lastStepTime;
-    //[SerializeField] private AudioClipList stepSounds;
+    [SerializeField] private AudioClipList stepSounds;
 
     public enum OrientationMode
     {
@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour, IMovingAnimatable
         if (rawStickValue.magnitude > 0.1f && Time.time - lastStepTime > timePerStep)
         {
             lastStepTime = Time.time;
-            //stepSounds.PlayAtPointRandom(transform.position);
+            stepSounds.PlayAtPointRandom(transform.position);
         }
 
         return movement;
