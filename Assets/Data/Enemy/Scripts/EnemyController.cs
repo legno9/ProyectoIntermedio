@@ -25,7 +25,6 @@ public class EnemyController : MonoBehaviour, IMovingAnimatable
         animator = GetComponentInChildren<Animator>();
         entityLife = GetComponent<EntityHealth>();
         agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
     }
 
     private void Start()
@@ -67,13 +66,14 @@ public class EnemyController : MonoBehaviour, IMovingAnimatable
         enabled = false;
         agent.enabled = false;
         animator.enabled = false;
-        GetComponentInChildren<HitCollider>(true).gameObject.SetActive(false);
-        GetComponentInChildren<HurtCollider>(true).gameObject.SetActive(false);
-        GetComponentInChildren<Ragdollizer>().Ragdollize();
+        // GetComponentInChildren<HitCollider>(true).gameObject.SetActive(false);
+        // GetComponentInChildren<HurtCollider>(true).gameObject.SetActive(false);
+        // GetComponentInChildren<Ragdollizer>().Ragdollize();
 
         // Instantiate(despawnEffect, transform.position, Quaternion.identity).GetComponent<VFXResizer>().ChangeSize(transform.localScale.y);
 
-        DOVirtual.DelayedCall(5f, () => Destroy(gameObject));
+        // DOVirtual.DelayedCall(5f, () => Destroy(gameObject));
+        Destroy(gameObject);
     }
 
     public float GetNormalizedForwardVelocity()
