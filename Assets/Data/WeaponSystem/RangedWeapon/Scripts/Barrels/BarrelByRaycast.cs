@@ -23,18 +23,17 @@ public class BarrelByRaycast : BarrelBase, IHitter
         Vector3 bulletStartPosition = transform.position;
         Quaternion spreadToApply = Quaternion.Euler(0, Random.Range(-(spread / 2), (spread / 2)), 0);
         Vector3 normalizedBulletDirection;
-        Vector3 bulletEndPosition;
 
         if (aimTarget != null)
         {
             normalizedBulletDirection = (spreadToApply * (aimTarget.position - transform.position)).normalized;
-            bulletEndPosition = aimTarget.position;
         }
         else
         {
             normalizedBulletDirection = (spreadToApply * transform.forward).normalized;
-            bulletEndPosition = transform.position + normalizedBulletDirection * range;
         }
+
+        Vector3 bulletEndPosition = transform.position + normalizedBulletDirection * range;
 
         // Check for targets that overlap the firing point
         Collider[] colliders = Physics.OverlapSphere(bulletStartPosition, 0.0001f, layerMask);

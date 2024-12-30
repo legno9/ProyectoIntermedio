@@ -123,6 +123,7 @@ public class EntityWeaponManager : MonoBehaviour
             {
                 if (((WeaponRanged)weapons[currentWeapon]).CanReload())
                 {
+                    ((WeaponRanged)weapons[currentWeapon]).SetIsReloading(true);
                     animator.SetTrigger("Reload");
                     return true;
                 }
@@ -177,6 +178,11 @@ public class EntityWeaponManager : MonoBehaviour
         if (currentWeapon != -1)
         {
             weapons[currentWeapon].Deselect(animator);
+
+            if (weapons[currentWeapon] is WeaponRanged)
+            {
+                ((WeaponRanged)weapons[currentWeapon]).SetIsReloading(false);
+            }
         }
 
         currentWeapon = weaponToSet;

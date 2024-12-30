@@ -9,7 +9,7 @@ public class Explosion : MonoBehaviour, IHitter
     [SerializeField] private LayerMask occluderLayerMask = Physics.DefaultRaycastLayers;
 
     [SerializeField] private GameObject visualExplosionPrefab;
-    //[SerializeField] private AudioClipList explosionSounds;
+    [SerializeField] private AudioClipList explosionSounds;
 
     private void Start()
     {
@@ -24,7 +24,7 @@ public class Explosion : MonoBehaviour, IHitter
             c.attachedRigidbody?.AddExplosionForce(force, transform.position, radius);
         }
 
-        //explosionSounds.PlayAtPointRandom(transform.position);
+        explosionSounds.PlayAtPointRandom(transform.position);
         Instantiate(visualExplosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

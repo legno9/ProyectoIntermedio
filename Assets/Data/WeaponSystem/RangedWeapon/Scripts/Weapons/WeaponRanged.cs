@@ -4,7 +4,8 @@ using UnityEngine;
 public class WeaponRanged : WeaponBase
 {
     [Header("Sound Settings")]
-    //[SerializeField] private AudioClipList shootSounds = new AudioClipList();
+    [SerializeField] private AudioClipList shootSounds = new AudioClipList();
+    [SerializeField] private AudioClipList reloadSounds = new AudioClipList();
     [SerializeField] protected GameObject muzzleFlash;
 
     //[Header("Debug")]
@@ -23,6 +24,8 @@ public class WeaponRanged : WeaponBase
     [SerializeField] private int maxReserveAmmo = 100;
     private int currentReserveAmmo = 0;
     [SerializeField] private WeaponType weaponType = WeaponType.Rifle;
+    private bool isReloading = false;
+    public void SetIsReloading(bool value) { isReloading = value; }
 
     public WeaponType GetWeaponType()
     {
@@ -31,7 +34,7 @@ public class WeaponRanged : WeaponBase
 
     public bool CanReload()
     {
-        return currentReserveAmmo > 0 && currentAmmo < maxAmmo;
+        return currentReserveAmmo > 0 && currentAmmo < maxAmmo && !isReloading;
     }
 
     private void OnValidate()
@@ -54,7 +57,7 @@ public class WeaponRanged : WeaponBase
 
     private void Shoot()
     {
-        //Instantiate(muzzleFlash, barrels[0].transform.position, barrels[0].transform.rotation, barrels[0].transform);
+        Instantiate(muzzleFlash, barrels[0].transform.position, barrels[0].transform.rotation, barrels[0].transform);
 
         foreach (BarrelBase barrel in barrels)
         {
@@ -62,7 +65,7 @@ public class WeaponRanged : WeaponBase
         }
 
         if (!infiniteAmmo){ currentAmmo--; }
-        //shootSounds.PlayAtPointRandom(transform.position);
+        shootSounds.PlayAtPointRandom(transform.position);
     }
 
     public override bool PerformAttack()
@@ -84,6 +87,8 @@ public class WeaponRanged : WeaponBase
         int ammoRecovered = Mathf.Min(maxAmmo - currentAmmo, currentReserveAmmo);
         currentReserveAmmo -= ammoRecovered;
         currentAmmo += ammoRecovered;
+        reloadSounds.PlayAtPointRandom(transform.position);
+        isReloading = false;
     }
 
     public void RecoverAmmo(int ammo)

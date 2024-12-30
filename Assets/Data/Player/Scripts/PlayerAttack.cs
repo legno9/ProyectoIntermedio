@@ -3,9 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
-    //[SerializeField] private AudioClipList cantAttackSounds;
-    //[SerializeField] private AudioClipList switchWeaponsSounds;
-    private bool canPerformWrongSound = true;
+    [SerializeField] private AudioClipList switchWeaponsSounds;
+    [SerializeField] private AudioClipList cantReloadSounds;
     private EntityWeaponManager weaponManager;
     private bool attacking = false;
 
@@ -18,25 +17,12 @@ public class PlayerAttack : MonoBehaviour
     {
         if (attacking)
         {
-            if (!weaponManager.PerformAttack() && canPerformWrongSound)
-            {
-                canPerformWrongSound = false;
-                //cantAttackSounds.PlayAtPointRandom(transform.position);
-            }
-            else
-            {
-                canPerformWrongSound = false;
-            }
+            weaponManager.PerformAttack();
         }
     }
 
     private void OnAttack(InputValue value)
     {
-        if (attacking == false && value.Get<float>() == 1f)
-        {
-            canPerformWrongSound = true;
-        }
-
         if (value.Get<float>() == 1f)
         {
             attacking = true;
@@ -51,7 +37,10 @@ public class PlayerAttack : MonoBehaviour
     {
         if (value.Get<float>() == 1f)
         {
-            weaponManager.PerformReload();
+            if (!weaponManager.PerformReload())
+            {
+                cantReloadSounds.PlayAtPointRandom(transform.position);
+            }
         }
     }
 
@@ -60,7 +49,7 @@ public class PlayerAttack : MonoBehaviour
         Vector2 readValue = value.Get<Vector2>();
         bool mustSelectNextWeapon = readValue.y > 0;
 
-        //switchWeaponsSounds.PlayAtPointRandom(transform.position);
+        switchWeaponsSounds.PlayAtPointRandom(transform.position);
         weaponManager.PerformChangeToNextOrPrevWeapon(mustSelectNextWeapon);
     }
 }

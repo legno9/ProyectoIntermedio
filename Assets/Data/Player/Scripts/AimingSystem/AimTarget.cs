@@ -8,7 +8,7 @@ public class AimTarget : MonoBehaviour
     [SerializeField] private LayerMask layerMask = Physics.DefaultRaycastLayers;
     private float lastHitDistance = 0f;
 
-    [SerializeField] private NewCameraController cameraController;
+    [SerializeField] private CameraController cameraController;
     [SerializeField] private Transform lookAtTransform;
     [SerializeField] private CinemachineOrbitalFollow notAimingCam;
     [SerializeField] private CinemachineOrbitalFollow aimingCam;
