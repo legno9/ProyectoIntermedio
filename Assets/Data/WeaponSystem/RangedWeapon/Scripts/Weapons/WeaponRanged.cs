@@ -21,7 +21,6 @@ public class WeaponRanged : WeaponBase
     [SerializeField] private bool infiniteAmmo = false;
     [SerializeField] private int maxAmmo = 25;
     private int currentAmmo;
-    [SerializeField] private int maxReserveAmmo = 100;
     private int currentReserveAmmo = 0;
     [SerializeField] private WeaponType weaponType = WeaponType.Rifle;
     private bool isReloading = false;
@@ -35,6 +34,21 @@ public class WeaponRanged : WeaponBase
     public bool CanReload()
     {
         return currentReserveAmmo > 0 && currentAmmo < maxAmmo && !isReloading;
+    }
+
+    public float GetCurrentAmmo()
+    {
+        return currentAmmo;
+    }
+
+    public float GetMaxAmmo()
+    {
+        return maxAmmo;
+    }
+
+    public float GetCurrentReserveAmmo()
+    {
+        return currentReserveAmmo;
     }
 
     private void OnValidate()
@@ -51,7 +65,7 @@ public class WeaponRanged : WeaponBase
         base.Init();
         barrels = GetComponentsInChildren<BarrelBase>();
         currentAmmo = maxAmmo;
-        currentReserveAmmo = maxReserveAmmo;
+        currentReserveAmmo = maxAmmo * 4;
         lastAttackTime = Time.time - 1f / attacksPerSecond;
     }
 
@@ -93,7 +107,7 @@ public class WeaponRanged : WeaponBase
 
     public void RecoverAmmo(int ammo)
     {
-        currentReserveAmmo = Mathf.Min(currentReserveAmmo + ammo, maxReserveAmmo);
+        currentReserveAmmo += ammo;
     }
 }
 

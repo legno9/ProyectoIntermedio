@@ -37,6 +37,20 @@ public class EntityWeaponManager : MonoBehaviour
         return currentWeapon != -1 ? weapons[currentWeapon].GetCurrentCooldown() : 1f;
     }
 
+    public (float, float, float) GetCurrentWeaponAmmo()
+    {
+        (float currentAmmo, float maxAmmo, float ammoInReserve) = (0f, 0f, 0f);
+
+        if (currentWeapon != -1 && weapons[currentWeapon] is WeaponRanged)
+        {
+            currentAmmo = ((WeaponRanged)weapons[currentWeapon]).GetCurrentAmmo();
+            maxAmmo = ((WeaponRanged)weapons[currentWeapon]).GetMaxAmmo();
+            ammoInReserve = ((WeaponRanged)weapons[currentWeapon]).GetCurrentReserveAmmo();
+        }
+
+        return (currentAmmo, maxAmmo, ammoInReserve);
+    }
+
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();

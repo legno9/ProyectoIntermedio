@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
-  amount: 1000
+  amount: 4
   pickupSounds:
     volume: 1
     pitch: 1
