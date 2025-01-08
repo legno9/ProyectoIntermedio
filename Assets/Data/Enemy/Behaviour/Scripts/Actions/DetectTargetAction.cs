@@ -13,6 +13,26 @@ public partial class DetectTargetAction : Action
     [SerializeReference] public BlackboardVariable<GameObject> Target;
     [SerializeReference] public BlackboardVariable<bool> TargetDetected;
     [SerializeReference] public BlackboardVariable<TargetFollower> TargetFollower;
+
+    protected override Status OnStart()
+    {
+        if (Target.Value == null)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            GameObject lockOnTarget = player.GetComponentsInChildren<BoxCollider>()[^1].gameObject;
+
+            if (lockOnTarget != null && lockOnTarget.layer == LayerMask.NameToLayer("LockOnTargets"))
+            {
+                Target.Value = lockOnTarget;
+            }
+            else
+            {
+                Target.Value = player;
+            }
+            
+        }
+        return Status.Running;
+    }
     protected override Status OnUpdate()
     {
         if (SightDetector.Value.Detect(Target.Value) || HeardDetector.Value.IsTargetDetected(Target.Value))

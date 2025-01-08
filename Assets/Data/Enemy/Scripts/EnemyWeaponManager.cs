@@ -1,6 +1,6 @@
-using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
+using System;
 
 public class EnemyWeaponManager : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class EnemyWeaponManager : MonoBehaviour
     // [Header("IK")]
     // [SerializeField] private float idleOffset = 0f;
     // [SerializeField] private float inCombatStanceOffset = 39f;
-
+    [SerializeField] private SerializableDictionary<WeaponType, GameObject> weaponTypeAmmo ;
     private Animator animator;
     private RuntimeAnimatorController originalAnimatorController;
     private int currentWeapon = -1;
@@ -140,6 +140,17 @@ public class EnemyWeaponManager : MonoBehaviour
         // AnimateAimRigWeight();
     }
 
+    public GameObject GetCurrentWeaponAmmo()
+    {
+        if (currentWeapon == -1 || weapons[currentWeapon] == null || weapons[currentWeapon] is WeaponMelee)
+        {
+            return null;
+        }
+        WeaponRanged weaponRanged = (WeaponRanged)weapons[currentWeapon];
+
+        return weaponTypeAmmo.ToDictionary()[weaponRanged.GetWeaponType()];
+    }
+
     // private void AnimateAimRigWeight()
     // {
     //     float offset = 0;
@@ -170,4 +181,47 @@ public class EnemyWeaponManager : MonoBehaviour
     //         0.25f
     //     );
     // }
+}
+
+[Serializable]
+public class KeyValuePair<TKey, TValue>
+{
+    public TKey Key;
+    public TValue Value;
+
+    public KeyValuePair(TKey key, TValue value)
+    {
+        Key = key;
+        Value = value;
+    }
+}
+
+[Serializable]
+public class SerializableDictionary<TKey, TValue>
+{
+    [SerializeField] private List<KeyValuePair<TKey, TValue>> items = new();
+
+    public Dictionary<TKey, TValue> ToDictionary()
+    {
+        Dictionary<TKey, TValue> dictionary = new();
+        foreach (var item in items)
+        {
+            if (!dictionary.ContainsKey(item.Key))
+            {
+                dictionary.Add(item.Key, item.Value);
+            }
+        }
+        return dictionary;
+    }
+
+    public void FromDictionary(Dictionary<TKey, TValue> dictionary)
+    {
+        items.Clear();
+        foreach (var kvp in dictionary)
+        {
+            items.Add(new KeyValuePair<TKey, TValue>(kvp.Key, kvp.Value));
+        }
+    }
+
+    public List<KeyValuePair<TKey, TValue>> Items => items;
 }

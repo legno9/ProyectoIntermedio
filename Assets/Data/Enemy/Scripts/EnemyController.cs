@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.Behavior;
 using UnityEngine.Animations;
 using UnityEngine.Animations.Rigging;
 
@@ -10,11 +11,11 @@ public class EnemyController : MonoBehaviour, IMovingAnimatable
 {
     [SerializeField] private Rig aimRig;
     [SerializeField] private TargetFollower targetFollower;
-
     private const float MIN_ROTATION_FOR_MOVEMENT = 45f;
     private Animator animator;
     private EntityHealth entityLife;
     private NavMeshAgent agent;
+    private BehaviorGraphAgent behaviourAgent;
     private EnemyWeaponManager weaponManager;
     private Transform target;
     
@@ -25,6 +26,7 @@ public class EnemyController : MonoBehaviour, IMovingAnimatable
         animator = GetComponentInChildren<Animator>();
         entityLife = GetComponent<EntityHealth>();
         agent = GetComponent<NavMeshAgent>();
+        behaviourAgent = GetComponent<BehaviorGraphAgent>();
     }
 
     private void Start()
@@ -65,15 +67,13 @@ public class EnemyController : MonoBehaviour, IMovingAnimatable
     {
         enabled = false;
         agent.enabled = false;
+        behaviourAgent.enabled = false;
         animator.enabled = false;
-        // GetComponentInChildren<HitCollider>(true).gameObject.SetActive(false);
-        // GetComponentInChildren<HurtCollider>(true).gameObject.SetActive(false);
-        // GetComponentInChildren<Ragdollizer>().Ragdollize();
-
+        GetComponentInChildren<Ragdollizer>().Ragdollize();
+        Instantiate(weaponManager.GetCurrentWeaponAmmo(), transform.position, Quaternion.identity);
         // Instantiate(despawnEffect, transform.position, Quaternion.identity).GetComponent<VFXResizer>().ChangeSize(transform.localScale.y);
-
-        // DOVirtual.DelayedCall(5f, () => Destroy(gameObject));
-        Destroy(gameObject);
+        
+        DOVirtual.DelayedCall(5f, () => Destroy(gameObject));
     }
 
     public float GetNormalizedForwardVelocity()
