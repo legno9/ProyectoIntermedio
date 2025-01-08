@@ -15,6 +15,7 @@ public class EntityHealth : MonoBehaviour
 
     [HideInInspector] public UnityEvent<float, float> OnHealthChanged; // current health and health change
     [HideInInspector] public UnityEvent OnDeath;
+    [HideInInspector] public UnityEvent OnDamaged;
 
     #region Debug
     // [SerializeField] private float debugLifeToAdd = 0f;
@@ -52,6 +53,7 @@ public class EntityHealth : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
         OnHealthChanged?.Invoke(currentHealth, damage);
+        OnDamaged?.Invoke();
         timeSinceLastDamage = 0f;
 
         if (Mathf.Sign(damage) == 1)
