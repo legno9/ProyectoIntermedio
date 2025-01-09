@@ -13,12 +13,12 @@ public class BarrelByInstantiation : BarrelBase
 
         if (aimTarget != null)
         {
-            Vector3 direction = aimTarget.position - transform.position;
+            Vector3 direction = (aimTarget.position - transform.position).normalized;
             aimingOffset = Quaternion.LookRotation(direction);
         }
 
         Quaternion spreadToApply = Quaternion.Euler(0, Random.Range(-(spread / 2), (spread / 2)), 0);
-        GameObject projectileInstance = Instantiate(projectilePrefab, transform.position, transform.rotation * aimingOffset * spreadToApply);
+        GameObject projectileInstance = Instantiate(projectilePrefab, transform.position, aimingOffset * spreadToApply);
         projectileInstance.GetComponent<Projectile>().Init(projectileStartSpeed, projectileLifetime, projectileDamage);
     }
 }

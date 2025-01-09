@@ -5694,6 +5694,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b17513a94d696da448f704f491c0a11c, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: b17513a94d696da448f704f491c0a11c, type: 3}
       propertyPath: m_Controller
       value: 
@@ -5732,6 +5736,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b17513a94d696da448f704f491c0a11c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8606021615368720869}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b17513a94d696da448f704f491c0a11c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 788768537729630586}
   m_SourcePrefab: {fileID: 100100000, guid: b17513a94d696da448f704f491c0a11c, type: 3}
 --- !u!4 &191874570893230717 stripped
 Transform:
@@ -5758,7 +5765,7 @@ MonoBehaviour:
   maxHealth: 100
   passiveRegenRate: 0
   passiveRegenDelay: 10
-  invulnerabilityTime: 0.5
+  invulnerabilityTime: 0
   damageNumberPopUp: {fileID: 1275253581603887254, guid: 346d432ab48727b4f8407a1f67702941, type: 3}
   OnHealthChanged:
     m_PersistentCalls:
@@ -5912,6 +5919,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackFlashColor: {r: 1, g: 0, b: 1, a: 1}
   flashDuration: 0.5
+--- !u!114 &788768537729630586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719647165839786212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af0bbe6933b2714ea999241d383939a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodVFX: {fileID: 3497956134262052777, guid: e4607d825573fc34aa8c005af93e3902, type: 3}
+  bleedingSpread: 30
+  bloodSpawnDistance: 0.5
+  bloodPuddleHeight: 0.75
+  bloodPuddleRadius: 1
 --- !u!4 &2060037636580645470 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b17513a94d696da448f704f491c0a11c, type: 3}
