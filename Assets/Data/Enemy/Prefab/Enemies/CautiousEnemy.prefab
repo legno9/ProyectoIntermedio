@@ -553,6 +553,7 @@ MonoBehaviour:
   - rid: 814258307966173413
   - rid: 814258308158849493
   - rid: 814258309076091176
+  - rid: 6413714308099211394
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
@@ -630,6 +631,14 @@ MonoBehaviour:
           m_Value1: 1297056258552261928
         Name: PatrolPoints
         m_Value: []
+    - rid: 6413714308099211394
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 4863882304953244721
+          m_Value1: 9660913572694554899
+        Name: DistanceToWalkBack
+        m_Value: 5
 --- !u!114 &8117844496261032326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -880,7 +889,7 @@ Transform:
   m_GameObject: {fileID: 5498720774121985754}
   serializedVersion: 2
   m_LocalRotation: {x: 0.31291625, y: -0.4707872, z: 0.4349967, w: 0.7008714}
-  m_LocalPosition: {x: 0.19245866, y: 1.2205259, z: 0.2968557}
+  m_LocalPosition: {x: 0.19245885, y: 1.2205259, z: 0.29685605}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -922,7 +931,7 @@ MonoBehaviour:
     pitch: 1
     canAlertEnemies: 0
     audioClipList: []
-  muzzleFlash: {fileID: 100006, guid: b0a227fc2e558f241b1c747820ccc361, type: 3}
+  muzzleFlash: {fileID: 100006, guid: b8ce07d8537233e46953f2710565f6b7, type: 3}
   infiniteAmmo: 1
   maxAmmo: 25
   weaponType: 0
@@ -1006,7 +1015,7 @@ Transform:
   m_GameObject: {fileID: 5557770574155050712}
   serializedVersion: 2
   m_LocalRotation: {x: 0.31291625, y: -0.4707872, z: 0.4349967, w: 0.7008714}
-  m_LocalPosition: {x: 0.19245866, y: 1.2205259, z: 0.2968557}
+  m_LocalPosition: {x: 0.19245885, y: 1.2205259, z: 0.29685605}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1048,7 +1057,7 @@ MonoBehaviour:
     pitch: 1
     canAlertEnemies: 0
     audioClipList: []
-  muzzleFlash: {fileID: 100006, guid: b0a227fc2e558f241b1c747820ccc361, type: 3}
+  muzzleFlash: {fileID: 100006, guid: b8ce07d8537233e46953f2710565f6b7, type: 3}
   infiniteAmmo: 1
   maxAmmo: 25
   weaponType: 0
