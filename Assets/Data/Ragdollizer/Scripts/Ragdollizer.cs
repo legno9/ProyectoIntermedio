@@ -15,12 +15,14 @@ public class Ragdollizer : MonoBehaviour
         UnRagdollize();
     }
 
+    [ContextMenu("Unragdollize")]
     private void UnRagdollize()
     {
         foreach (Collider collider in colliders) { collider.enabled = false; }
         foreach (Rigidbody rigidbody in rigidbodies) { rigidbody.isKinematic = true; }
     }
 
+    [ContextMenu("Ragdollize")]
     public void Ragdollize()
     {
         foreach (Collider collider in colliders) { collider.enabled = true; }

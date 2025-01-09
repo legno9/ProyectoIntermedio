@@ -10,15 +10,23 @@ public class HeardDetector : MonoBehaviour
 
     private void Update() 
     {
-        foreach (var item in objectsHeared)
-        {
-            objectsHeared[item.Key] -= Time.deltaTime;
+        List<GameObject> itemsToRemove = new();
+        Dictionary<GameObject, float> tempObjectsHeared = new(objectsHeared);
 
-            if (soundPersistence <= 0)
+        foreach (var kvp in tempObjectsHeared)
+        {
+            objectsHeared[kvp.Key] -= Time.deltaTime;
+
+            if (objectsHeared[kvp.Key] <= 0)
             {
-                objects.Remove(item.Key);
-                objectsHeared.Remove(item.Key);
+                itemsToRemove.Add(kvp.Key);
             }
+        }
+
+        foreach (GameObject item in itemsToRemove)
+        {
+            objectsHeared.Remove(item);
+            objects.Remove(item);
         }
     }
 
@@ -34,14 +42,15 @@ public class HeardDetector : MonoBehaviour
 
         if (distance <= hearingRange)
         {
-            Debug.Log("IA ha escuchado el sonido desde: " + soundOrigin + " a una distancia de " + distance);
             if (!objects.Contains(soundSource))
             {
+                Debug.Log("IA ha escuchado el sonido de " + soundSource + " a una distancia de " + distance);
                 objects.Add(soundSource);
                 objectsHeared.Add(soundSource, soundPersistence);
             }
             else
             {
+                Debug.Log("IA ha vuelto a escuchar el sonido de " + soundSource + "a una distancia de " + distance);
                 objectsHeared[soundSource] = soundPersistence;
             }
         }

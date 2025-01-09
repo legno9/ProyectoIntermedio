@@ -1,8 +1,10 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.Behavior;
 using UnityEngine.Animations;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(EntityHealth))]
 [RequireComponent(typeof(NavMeshAgent))]
@@ -10,13 +12,15 @@ public class EnemyController : MonoBehaviour, IMovingAnimatable
 {
     [SerializeField] private Rig aimRig;
     [SerializeField] private TargetFollower targetFollower;
-
+    [SerializeField] private Image hpBar;
     private const float MIN_ROTATION_FOR_MOVEMENT = 45f;
     private Animator animator;
     private EntityHealth entityLife;
     private NavMeshAgent agent;
+    private BehaviorGraphAgent behaviourAgent;
     private EnemyWeaponManager weaponManager;
     private Transform target;
+
     
 
     private void Awake()
@@ -25,6 +29,7 @@ public class EnemyController : MonoBehaviour, IMovingAnimatable
         animator = GetComponentInChildren<Animator>();
         entityLife = GetComponent<EntityHealth>();
         agent = GetComponent<NavMeshAgent>();
+        behaviourAgent = GetComponent<BehaviorGraphAgent>();
     }
 
     private void Start()
@@ -41,11 +46,15 @@ public class EnemyController : MonoBehaviour, IMovingAnimatable
     private void OnEnable()
     {
         entityLife.OnDeath.AddListener(OnDeath);
+        entityLife.OnDamaged.AddListener(Damaged);
+        entityLife.OnHealthChanged.AddListener(OnHealthChanged);
     }
 
     private void OnDisable()
     {
         entityLife.OnDeath.RemoveListener(OnDeath);
+        entityLife.OnDamaged.RemoveListener(Damaged);
+        entityLife.OnHealthChanged.RemoveListener(OnHealthChanged);
     }
 
     public Transform GetCurrentWeaponShootPoint()
@@ -53,27 +62,34 @@ public class EnemyController : MonoBehaviour, IMovingAnimatable
         return weaponManager.GetCurrentWeapon().GetComponentInChildren<BarrelByRaycast>().transform;
     }
 
+    private void Damaged()
+    {
+        behaviourAgent.SetVariableValue("TargetDetected", true);
+    }
+
+    private void OnHealthChanged(float currentHealth, float damage)
+    {
+        hpBar.fillAmount = currentHealth / entityLife.GetMaxHealth();
+    }
+
     public void Shoot(Transform target)
     {
         this.target = target;
         targetFollower.UpdateFollower();
         weaponManager.PerformAttack();
-        
     }
 
     private void OnDeath()
     {
         enabled = false;
         agent.enabled = false;
+        behaviourAgent.enabled = false;
         animator.enabled = false;
-        // GetComponentInChildren<HitCollider>(true).gameObject.SetActive(false);
-        // GetComponentInChildren<HurtCollider>(true).gameObject.SetActive(false);
-        // GetComponentInChildren<Ragdollizer>().Ragdollize();
-
+        GetComponentInChildren<Ragdollizer>().Ragdollize();
+        Instantiate(weaponManager.GetCurrentWeaponAmmo(), transform.position, Quaternion.identity);
         // Instantiate(despawnEffect, transform.position, Quaternion.identity).GetComponent<VFXResizer>().ChangeSize(transform.localScale.y);
-
-        // DOVirtual.DelayedCall(5f, () => Destroy(gameObject));
-        Destroy(gameObject);
+        
+        DOVirtual.DelayedCall(5f, () => Destroy(gameObject));
     }
 
     public float GetNormalizedForwardVelocity()
