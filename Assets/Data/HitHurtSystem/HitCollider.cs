@@ -10,6 +10,7 @@ public class HitCollider : MonoBehaviour, IHitter
 
     [Header("Events")]
     public UnityEvent OnHit;
+    public UnityEvent<string> OnHitWithTag;
 
     public float GetDamage()
     {
@@ -27,6 +28,7 @@ public class HitCollider : MonoBehaviour, IHitter
         {
             hurtCollider.NotifyCollision(this, collision);
             OnHit.Invoke();
+            OnHitWithTag.Invoke(collision.collider.tag);
         }
     }
 
@@ -39,6 +41,7 @@ public class HitCollider : MonoBehaviour, IHitter
 
             hurtCollider.NotifyTrigger(this, triggerPoint, normal);
             OnHit.Invoke();
+            OnHitWithTag.Invoke(other.tag);
         }
     }
 }

@@ -5,8 +5,6 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
-using static System.TimeZoneInfo;
-using static UnityEngine.Rendering.DebugUI;
 
 [RequireComponent(typeof(PlayerInput))]
 public class CameraController : MonoBehaviour
@@ -41,8 +39,6 @@ public class CameraController : MonoBehaviour
     [Header("Rigs")]
     [SerializeField] private Rig aimForwardRig;
     [SerializeField] private Transform objectInFrontHolder;
-    //[SerializeField] private Rig aimAboveRig;
-    //[SerializeField] private Rig aimBelowRig;
 
     private void Awake()
     {

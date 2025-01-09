@@ -13,6 +13,10 @@ public class EntityHealth : MonoBehaviour
     [SerializeField] private float passiveRegenDelay = 10f;
     private float timeSinceLastDamage = 0f;
 
+    [SerializeField] private float invulnerabilityTime = 0.5f;
+    private float currentInvulnerabilityTime = 0f;
+    [SerializeField] private GameObject damageNumberPopUp;
+
     [HideInInspector] public UnityEvent<float, float> OnHealthChanged; // current health and health change
     [HideInInspector] public UnityEvent OnDeath;
 
@@ -50,6 +54,14 @@ public class EntityHealth : MonoBehaviour
 
     private void OnHitWithDamage(float damage)
     {
+        if (currentInvulnerabilityTime > 0f)
+        {
+            return;
+        }
+
+        currentInvulnerabilityTime = invulnerabilityTime;
+        Instantiate(damageNumberPopUp, transform.position + Vector3.up * 1.5f * transform.localScale.y, Quaternion.identity).GetComponent<DamageNumberPopUp>().Initialize(damage);
+
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
         OnHealthChanged?.Invoke(currentHealth, damage);
         timeSinceLastDamage = 0f;
@@ -73,6 +85,8 @@ public class EntityHealth : MonoBehaviour
 
     private void Update()
     {
+        currentInvulnerabilityTime -= Time.deltaTime;
+
         if (currentHealth < maxHealth)
         {
             timeSinceLastDamage += Time.deltaTime;

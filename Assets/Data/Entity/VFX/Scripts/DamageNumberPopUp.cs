@@ -52,7 +52,7 @@ public class DamageNumberPopUp : MonoBehaviour
             fadeOutTween = textMesh.DOFade(0f, fadeOutDuration)
             .OnComplete(() =>
             {
-                textMesh.gameObject.SetActive(false);
+                Destroy(gameObject);
             });
         }
     }
