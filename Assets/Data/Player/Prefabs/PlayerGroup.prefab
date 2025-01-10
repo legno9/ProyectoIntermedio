@@ -659,10 +659,13 @@ MonoBehaviour:
   cam2: {fileID: 8240521453383681300}
   playerWeaponManager: {fileID: 6002636252652759001}
   playerTransform: {fileID: 4428800243910357415}
-  lockOnRange: 100
+  lockOnRange: 25
   lockOnLayer:
     serializedVersion: 2
     m_Bits: 64
+  lockOnBlockingLayers:
+    serializedVersion: 2
+    m_Bits: 256
   lookAtTransform: {fileID: 6764919051798343282}
   notAimingLookAtTransform: {fileID: 8399600250450296343}
   aimingLookAtTransform: {fileID: 163779647600649569}

@@ -23,6 +23,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float lockOnRange;
     [SerializeField] private LayerMask lockOnLayer;
+    [SerializeField] private LayerMask lockOnBlockingLayers;
     private Queue<Transform> lockOnTargets = new();
     private bool isLockedOn = false;
 
@@ -218,11 +219,26 @@ public class CameraController : MonoBehaviour
 
     private void SearchTargets()
     {
-        Collider[] hits = Physics.OverlapSphere(playerTransform.position, lockOnRange, lockOnLayer);
+        List<Collider> targets = Physics.OverlapSphere(playerTransform.position, lockOnRange, lockOnLayer).ToList();
+        List<Collider> collidersIgnored = new List<Collider>();
+
+        foreach (var target in targets)
+        {
+            if (Physics.Linecast(transform.position, target.transform.position, out RaycastHit hit, lockOnBlockingLayers) ||
+                (hit.collider && target))
+            {
+                collidersIgnored.Add(target);
+            }
+        }
+
+        foreach (var target in collidersIgnored)
+        {
+            targets.Remove(target);
+        }
 
         // Filter, sort, and queue transforms based on distance
         lockOnTargets = new Queue<Transform>(
-            hits
+            targets
             .Select(hit => hit.transform) // Get transforms
             .OrderBy(transform => Vector3.Distance(playerTransform.position, transform.position)) // Sort by proximity
         );
