@@ -6,8 +6,8 @@ public class EntityHealth : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 1f;
     private float currentHealth;
-    //[SerializeField] private AudioClipList hurtSounds;
-    //[SerializeField] private AudioClipList deathSounds;
+    [SerializeField] private AudioClipList hurtSounds;
+    [SerializeField] private AudioClipList deathSounds;
 
     [SerializeField] private float passiveRegenRate = 0f;
     [SerializeField] private float passiveRegenDelay = 10f;
@@ -70,13 +70,13 @@ public class EntityHealth : MonoBehaviour
 
         if (Mathf.Sign(damage) == 1)
         {
-            //hurtSounds.PlayAtPointRandom(transform.position);
+            hurtSounds.PlayAtPointRandom(transform.position);
         }
 
         if (currentHealth <= 0f)
         {
             OnDeath?.Invoke();
-            //deathSounds.PlayAtPointRandom(transform.position);
+            deathSounds.PlayAtPointRandom(transform.position);
         }
     }
 

@@ -35,6 +35,10 @@ public class BossController : MonoBehaviour, IMovingAnimatable
     private bool isAttacking = false;
     private bool isKnockedDown = false;
 
+    // Sounds
+    [SerializeField] private AudioClipList axeAttackSounds;
+    [SerializeField] private AudioClipList specialAttackSounds;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -89,7 +93,6 @@ public class BossController : MonoBehaviour, IMovingAnimatable
 
             if (usableAttacks.Any())
             {
-                Debug.Log(usableAttacks.Count());
                 int index = UnityEngine.Random.Range(0, usableAttacks.Count());
                 BossAttack attackToUse = usableAttacks.ElementAt(index);
                 StartAttack(distance, attackToUse);
@@ -146,11 +149,13 @@ public class BossController : MonoBehaviour, IMovingAnimatable
 
     public void ActivateAxeHitbox(float duration)
     {
+        axeAttackSounds.PlayAtPointRandom(transform.position);
         axeCollider.Activate(duration);
     }
 
     public void ActivateSpecialHitbox(int index)
     {
+        specialAttackSounds.PlayAtPoint(index, transform.position);
         specialAttackColliders[index].Activate();
     }
 
@@ -239,12 +244,8 @@ public class BossController : MonoBehaviour, IMovingAnimatable
         DisableMovement();
         entityHealth.enabled = false;
         hurtCollider.enabled = false;
-        Invoke("DestroyAfterDeath", 5f);
-    }
-
-    private void DestroyAfterDeath()
-    {
-        Destroy(gameObject);
+        isKnockedDown = true;
+        Destroy(gameObject, 5f);
     }
 }
 
