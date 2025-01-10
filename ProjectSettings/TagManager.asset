@@ -17,8 +17,8 @@ TagManager:
   - LockOnTargets
   - Enemy
   - GroundAndWalls
-  - 
-  - 
+  - EnemyDeath
+  - OnlyAI
   - 
   - 
   - 

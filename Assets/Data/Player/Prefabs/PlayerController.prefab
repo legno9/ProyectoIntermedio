@@ -80,7 +80,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516478738015132116}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3019843, y: 0.56952596, z: -0.5272487, w: 0.5535833}
+  m_LocalRotation: {x: -0.01147815, y: -0.02157151, z: -0.00024767497, w: 0.99970144}
   m_LocalPosition: {x: 0.2204082, y: 0.58264476, z: -0.10486251}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -108,7 +108,7 @@ MonoBehaviour:
   shootSounds:
     volume: 1
     pitch: 3
-    isFromPlayer: 1
+    canAlertEnemies: 1
     audioClipList:
     - {fileID: 8300000, guid: 588cfdbccda7f66419de73fa605b0c67, type: 3}
     - {fileID: 8300000, guid: 7c530392cf080ce448c52f0bbdee2c16, type: 3}
@@ -117,13 +117,12 @@ MonoBehaviour:
   reloadSounds:
     volume: 1
     pitch: 1
-    isFromPlayer: 1
+    canAlertEnemies: 1
     audioClipList:
     - {fileID: 8300000, guid: 95abe3a311310a947b1c4e04b9bcbaaa, type: 3}
   muzzleFlash: {fileID: 100006, guid: bc2f98f87dbaecb43b6dc12605e55545, type: 3}
   infiniteAmmo: 0
   maxAmmo: 5
-  maxReserveAmmo: 20
   weaponType: 1
 --- !u!1773428102 &792689871807823082
 ParentConstraint:
@@ -321,7 +320,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594885860920357769}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3019843, y: 0.56952596, z: -0.5272487, w: 0.5535833}
+  m_LocalRotation: {x: -0.011478898, y: -0.021571506, z: -0.0002476911, w: 0.9997014}
   m_LocalPosition: {x: 0.22040814, y: 0.5826447, z: -0.10486263}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -349,7 +348,7 @@ MonoBehaviour:
   shootSounds:
     volume: 1
     pitch: 1
-    isFromPlayer: 1
+    canAlertEnemies: 1
     audioClipList:
     - {fileID: 8300000, guid: 06159b3c7c5bbc748bbccf3e2ef47342, type: 3}
     - {fileID: 8300000, guid: c14f19403e285d14d87898fc6c02305b, type: 3}
@@ -362,13 +361,12 @@ MonoBehaviour:
   reloadSounds:
     volume: 1
     pitch: 1
-    isFromPlayer: 1
+    canAlertEnemies: 1
     audioClipList:
     - {fileID: 8300000, guid: 2abafbe56b88f7445ae51c4675981bf9, type: 3}
   muzzleFlash: {fileID: 100006, guid: 8db559c1c66def443964cab349f28d6e, type: 3}
   infiniteAmmo: 0
   maxAmmo: 2500
-  maxReserveAmmo: 100
   weaponType: 0
 --- !u!1773428102 &258337914955943823
 ParentConstraint:
@@ -1097,7 +1095,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4388299428241772961}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3019843, y: 0.56952596, z: -0.5272487, w: 0.5535833}
+  m_LocalRotation: {x: -0.01147815, y: -0.02157151, z: -0.00024767497, w: 0.99970144}
   m_LocalPosition: {x: 0.2204082, y: 0.58264476, z: -0.10486251}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1125,19 +1123,18 @@ MonoBehaviour:
   shootSounds:
     volume: 1
     pitch: 1
-    isFromPlayer: 1
+    canAlertEnemies: 1
     audioClipList:
     - {fileID: 8300000, guid: c9e8ab80a541b4c469a0e4d3c3736a1e, type: 3}
   reloadSounds:
     volume: 1
     pitch: 1
-    isFromPlayer: 1
+    canAlertEnemies: 1
     audioClipList:
     - {fileID: 8300000, guid: 78079e595f8289e4d93a3019a13c8fbf, type: 3}
   muzzleFlash: {fileID: 100006, guid: 6955d34f180999b49b65a0f7437610dc, type: 3}
   infiniteAmmo: 0
   maxAmmo: 1
-  maxReserveAmmo: 4
   weaponType: 2
 --- !u!1773428102 &1517884122334830047
 ParentConstraint:
@@ -1276,6 +1273,59 @@ Transform:
   - {fileID: 4521799182249540640}
   m_Father: {fileID: 5901835073906216813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5330719916344906874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5970651508626568562}
+  - component: {fileID: 6097125609649896669}
+  m_Layer: 6
+  m_Name: LockOnTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5970651508626568562
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5330719916344906874}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.914, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 306729063205521978}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6097125609649896669
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5330719916344906874}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5584170417697241994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,6 +1821,7 @@ Transform:
   - {fileID: 4122685317995664211}
   - {fileID: 4893981998144629969}
   - {fileID: 1007410678122766654}
+  - {fileID: 5970651508626568562}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7026766374517521600
@@ -1832,7 +1883,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -1840,7 +1891,7 @@ CharacterController:
   m_Height: 1.45
   m_Radius: 0.25
   m_SlopeLimit: 45
-  m_StepOffset: 0.1
+  m_StepOffset: 0.5
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.725, z: 0}
@@ -1863,7 +1914,7 @@ MonoBehaviour:
   stepSounds:
     volume: 1
     pitch: 1
-    isFromPlayer: 1
+    canAlertEnemies: 1
     audioClipList:
     - {fileID: 8300000, guid: 42c42b0a11573cb47be1893736a7f0ab, type: 3}
     - {fileID: 8300000, guid: daa3593f8f536d147a4a685ec3cea7f5, type: 3}
@@ -1899,13 +1950,13 @@ MonoBehaviour:
   switchWeaponsSounds:
     volume: 1
     pitch: 1
-    isFromPlayer: 0
+    canAlertEnemies: 0
     audioClipList:
     - {fileID: 8300000, guid: 6dc3ed9f1c0267b48967093c47e9012a, type: 3}
   cantReloadSounds:
     volume: 1
     pitch: 1
-    isFromPlayer: 0
+    canAlertEnemies: 0
     audioClipList:
     - {fileID: 8300000, guid: 615d93880caed8f488216acfa6c10025, type: 3}
 --- !u!114 &7672550399624617028
@@ -1950,7 +2001,6 @@ MonoBehaviour:
   OnHitWithTrigger:
     m_PersistentCalls:
       m_Calls: []
-  damageNumberPopUp: {fileID: 0}
 --- !u!114 &1399437373962670544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1978,10 +2028,15 @@ MonoBehaviour:
   maxHealth: 50
   passiveRegenRate: 1
   passiveRegenDelay: 10
+  invulnerabilityTime: 0.5
+  damageNumberPopUp: {fileID: 0}
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
   OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDamaged:
     m_PersistentCalls:
       m_Calls: []
   debugLifeToSubtract: 2

@@ -87,8 +87,8 @@ public class EnemyController : MonoBehaviour, IMovingAnimatable
         animator.enabled = false;
         GetComponentInChildren<Ragdollizer>().Ragdollize();
         Instantiate(weaponManager.GetCurrentWeaponAmmo(), transform.position, Quaternion.identity);
-        // Instantiate(despawnEffect, transform.position, Quaternion.identity).GetComponent<VFXResizer>().ChangeSize(transform.localScale.y);
-        
+        gameObject.GetComponentInParent<EnemiesGroupManager>()?.RemoveEnemy(gameObject);
+
         DOVirtual.DelayedCall(5f, () => Destroy(gameObject));
     }
 

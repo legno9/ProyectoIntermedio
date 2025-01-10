@@ -315,7 +315,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2868506707808321577}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -651,14 +651,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4792734a2f783cd41b6922f6e6006636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 10
+  distance: 15
   _angle: 90
   sightHeight: 1.2
   height: 10
   color: {r: 0.85490197, g: 0.6, b: 0.6565577, a: 1}
   layerMask:
     serializedVersion: 2
-    m_Bits: 321
+    m_Bits: 64
   occlusionLayers:
     serializedVersion: 2
     m_Bits: 256
@@ -699,7 +699,6 @@ MonoBehaviour:
   OnHitWithTrigger:
     m_PersistentCalls:
       m_Calls: []
-  damageNumberPopUp: {fileID: 1275253581603887254, guid: 346d432ab48727b4f8407a1f67702941, type: 3}
 --- !u!114 &2582333646005525493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -715,6 +714,8 @@ MonoBehaviour:
   maxHealth: 10
   passiveRegenRate: 1
   passiveRegenDelay: 10
+  invulnerabilityTime: 0
+  damageNumberPopUp: {fileID: 1275253581603887254, guid: 346d432ab48727b4f8407a1f67702941, type: 3}
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -889,7 +890,7 @@ Transform:
   m_GameObject: {fileID: 5498720774121985754}
   serializedVersion: 2
   m_LocalRotation: {x: 0.31291625, y: -0.4707872, z: 0.4349967, w: 0.7008714}
-  m_LocalPosition: {x: 0.19245885, y: 1.2205259, z: 0.29685605}
+  m_LocalPosition: {x: 0.19245858, y: 1.2205259, z: 0.29685575}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1015,7 +1016,7 @@ Transform:
   m_GameObject: {fileID: 5557770574155050712}
   serializedVersion: 2
   m_LocalRotation: {x: 0.31291625, y: -0.4707872, z: 0.4349967, w: 0.7008714}
-  m_LocalPosition: {x: 0.19245885, y: 1.2205259, z: 0.29685605}
+  m_LocalPosition: {x: 0.19245858, y: 1.2205259, z: 0.29685575}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3259,6 +3260,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555143372688748781, guid: 15041a2c2ebeaa34f8d20e03fbf51351, type: 3}
       propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 781672658506894240, guid: 15041a2c2ebeaa34f8d20e03fbf51351, type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3226791566615477940, guid: 15041a2c2ebeaa34f8d20e03fbf51351, type: 3}

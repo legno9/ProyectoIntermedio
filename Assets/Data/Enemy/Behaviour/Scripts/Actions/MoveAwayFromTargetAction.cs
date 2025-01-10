@@ -20,7 +20,6 @@ public partial class MoveAwayFromTargetAction : Action
 
     protected override Status OnStart()
     {
-        Debug.Log("a");
         m_NavMeshAgent = Self.Value.GetComponentInChildren<NavMeshAgent>();
 
         if (m_NavMeshAgent != null)

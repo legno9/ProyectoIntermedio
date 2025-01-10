@@ -44,13 +44,13 @@ public class HeardDetector : MonoBehaviour
         {
             if (!objects.Contains(soundSource))
             {
-                Debug.Log("IA ha escuchado el sonido de " + soundSource + " a una distancia de " + distance);
+                // Debug.Log("IA ha escuchado el sonido de " + soundSource + " a una distancia de " + distance);
                 objects.Add(soundSource);
                 objectsHeared.Add(soundSource, soundPersistence);
             }
             else
             {
-                Debug.Log("IA ha vuelto a escuchar el sonido de " + soundSource + "a una distancia de " + distance);
+                // Debug.Log("IA ha vuelto a escuchar el sonido de " + soundSource + "a una distancia de " + distance);
                 objectsHeared[soundSource] = soundPersistence;
             }
         }

@@ -18,14 +18,14 @@ public class Ragdollizer : MonoBehaviour
     [ContextMenu("Unragdollize")]
     private void UnRagdollize()
     {
-        foreach (Collider collider in colliders) { collider.enabled = false; }
+        foreach (Collider collider in colliders) { collider.enabled = false; collider.gameObject.layer = LayerMask.NameToLayer("Default"); }
         foreach (Rigidbody rigidbody in rigidbodies) { rigidbody.isKinematic = true; }
     }
 
     [ContextMenu("Ragdollize")]
     public void Ragdollize()
     {
-        foreach (Collider collider in colliders) { collider.enabled = true; }
+        foreach (Collider collider in colliders) { collider.enabled = true; collider.gameObject.layer = LayerMask.NameToLayer("EnemyDeath");}
         foreach (Rigidbody rigidbody in rigidbodies) { rigidbody.isKinematic = false; }
     }
 }
