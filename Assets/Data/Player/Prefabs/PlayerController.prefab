@@ -1283,7 +1283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5970651508626568562}
   - component: {fileID: 6097125609649896669}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: LockOnTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}

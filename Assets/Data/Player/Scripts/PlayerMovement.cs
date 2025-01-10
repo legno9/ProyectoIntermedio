@@ -151,6 +151,8 @@ public class PlayerMovement : MonoBehaviour, IMovingAnimatable
         // Codigo que gira para coincidir con dirección
         float angularDistance = Vector3.SignedAngle(transform.forward, desiredDirection, Vector3.up);
 
+        if (Mathf.Abs(angularDistance) < 0.01f) return;
+
         if (orientationMode == OrientationMode.FaceToTarget)
         {
             transform.rotation = Quaternion.LookRotation(desiredDirection, Vector3.up);

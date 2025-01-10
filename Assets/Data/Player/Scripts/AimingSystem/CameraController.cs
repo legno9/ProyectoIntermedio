@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
     [Header("Look At")]
     [SerializeField] private Transform lookAtTransform;
     [SerializeField] private Transform notAimingLookAtTransform;
+    [SerializeField] private Transform aimingLookAtTransform;
     private Transform currentLockOnTransform;
     private Transform newLockOnTransform;
     private bool isSwitchingLockOnTarget = false;
@@ -134,7 +135,6 @@ public class CameraController : MonoBehaviour
 
     private void DisableAiming()
     {
-        DisableLockOn();
 
         cam1.gameObject.SetActive(true);
         cam2.gameObject.SetActive(false);
@@ -142,6 +142,7 @@ public class CameraController : MonoBehaviour
         cam1.VerticalAxis.Value = cam2.VerticalAxis.Value;
         currentOrbitalFollow = cam1;
         currentCam = cam1.GetComponent<CinemachineCamera>();
+        DisableLockOn();
 
         isAiming = false;
     }
@@ -199,7 +200,15 @@ public class CameraController : MonoBehaviour
 
     private void DisableLockOn()
     {
-        newLockOnTransform = notAimingLookAtTransform;
+        if (currentOrbitalFollow == cam2)
+        {
+            newLockOnTransform = aimingLookAtTransform;
+        }
+        else
+        {
+            newLockOnTransform = notAimingLookAtTransform;
+        }
+
         startPosition = lookAtTransform.position;
         elapsedTime = 0f;
 
