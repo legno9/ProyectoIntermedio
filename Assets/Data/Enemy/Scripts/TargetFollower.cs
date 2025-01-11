@@ -5,8 +5,8 @@ using UnityEngine.Animations.Rigging;
 public class TargetFollower : MonoBehaviour
 {
     [SerializeField] float distance = 3;
+    [SerializeField] private Transform origin;
     private Transform target;
-    [HideInInspector] public Transform origin;
     private Behaviour[] constraints;
 
     public void SetTarget(Transform target)
@@ -15,11 +15,6 @@ public class TargetFollower : MonoBehaviour
         
         bool value =  target? true : false;
         EnableConstraints(value);
-    }
-
-    public void SetOrigin(Transform origin)
-    {
-        this.origin = origin;
     }
 
     public void SetConstraints(Behaviour[] constraints)
