@@ -17,11 +17,11 @@ public class SoundFXManager : MonoBehaviour
         soundEmitter = GetComponent<SoundEmitter>();
     }
 
-    public void PlaySoundFX(AudioClip audioClip, Vector3 spawnPosition, float volume, float pitch, bool isFromPlayer)
+    public void PlaySoundFX(AudioClip audioClip, Vector3 spawnPosition, float volume, float pitch, bool isFromPlayer, SoundRadius soundRadius)
     {
         if (isFromPlayer)
         {
-            soundEmitter.EmitSound(spawnPosition);
+            soundEmitter.EmitSound(spawnPosition, true, soundRadius);
         }
 
         float clampedVolume = Mathf.Clamp01(volume);
@@ -59,17 +59,18 @@ public class AudioClipList
     [FormerlySerializedAs("isFromPlayer")]
     [Tooltip("If true, the sound will be heard by AI listeners")]
     [SerializeField] private bool canAlertEnemies = false;
+    [SerializeField] private SoundRadius soundRadius = SoundRadius.small;
     public List<AudioClip> audioClipList = new();
-    // añadir manager sonidos y meterle el sound emitter
+    // anadir manager sonidos y meterle el sound emitter
     public void PlayAtPointRandom(Vector3 position)
     {
         if (audioClipList.Count == 0) return;
-        SoundFXManager.Instance.PlaySoundFX(audioClipList[Random.Range(0, audioClipList.Count)], position, volume, pitch, canAlertEnemies);
+        SoundFXManager.Instance.PlaySoundFX(audioClipList[Random.Range(0, audioClipList.Count)], position, volume, pitch, canAlertEnemies, soundRadius);
     }
 
     public void PlayAtPoint(int audioClipIndex, Vector3 position)
     {
         int clampedIndex = Mathf.Clamp(audioClipIndex, 0, audioClipList.Count - 1);
-        SoundFXManager.Instance.PlaySoundFX(audioClipList[audioClipIndex], position, volume, pitch, canAlertEnemies);
+        SoundFXManager.Instance.PlaySoundFX(audioClipList[audioClipIndex], position, volume, pitch, canAlertEnemies, soundRadius);
     }
 }

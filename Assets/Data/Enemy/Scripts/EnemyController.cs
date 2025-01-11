@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour, IMovingAnimatable
     [SerializeField] private Rig aimRig;
     [SerializeField] private TargetFollower targetFollower;
     [SerializeField] private Image hpBar;
+    [SerializeField] private GameObject myTarget;
+    [SerializeField] private CapsuleCollider Collider;
     private const float MIN_ROTATION_FOR_MOVEMENT = 45f;
     private Animator animator;
     private EntityHealth entityLife;
@@ -64,7 +66,11 @@ public class EnemyController : MonoBehaviour, IMovingAnimatable
 
     private void Damaged()
     {
-        behaviourAgent.SetVariableValue("TargetDetected", true);
+        if (behaviourAgent.GetVariable<bool>("TargetDetected", out var targetDetected) && !targetDetected)
+        {
+            targetDetected.Value = true;
+            behaviourAgent.SetVariableValue("TimerToUpdateTarget", 1f);
+        }
     }
 
     private void OnHealthChanged(float currentHealth, float damage)
@@ -85,6 +91,9 @@ public class EnemyController : MonoBehaviour, IMovingAnimatable
         agent.enabled = false;
         behaviourAgent.enabled = false;
         animator.enabled = false;
+        myTarget.SetActive(false);
+        Collider.enabled = false;
+        
         GetComponentInChildren<Ragdollizer>().Ragdollize();
         Instantiate(weaponManager.GetCurrentWeaponAmmo(), transform.position, Quaternion.identity);
         gameObject.GetComponentInParent<EnemiesGroupManager>()?.RemoveEnemy(gameObject);
