@@ -45,16 +45,13 @@ public class BarrelByRaycast : BarrelBase, IHitter
                 bulletEndPosition = hitInfo.point;
                 HurtCollider hurtCollider = hitInfo.collider.GetComponent<HurtCollider>();
 
-                if (hurtCollider != null)
+                if (Physics.Raycast(hitInfo.point, -normalizedBulletDirection, out RaycastHit hit2Info, Vector3.Distance(hitInfo.point, bulletStartPosition), layerMask))
                 {
-                    if (Physics.Raycast(hitInfo.point, -normalizedBulletDirection, out RaycastHit hit2Info, Vector3.Distance(hitInfo.point, bulletStartPosition), layerMask))
-                    {
-                        bulletEndPosition = hit2Info.point;
-                    }
-                    else
-                    {
-                        hurtCollider.NotifyTrigger(this, bulletEndPosition, hitInfo.normal);
-                    }
+                    bulletEndPosition = hit2Info.point;
+                }
+                else if (hurtCollider != null)
+                {
+                    hurtCollider.NotifyTrigger(this, bulletEndPosition, hitInfo.normal);
                 }
             }
         }
