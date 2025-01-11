@@ -14,6 +14,7 @@ public partial class DetectTargetWithoutSoundAction : Action
     [SerializeReference] public BlackboardVariable<GameObject> Target;
     [SerializeReference] public BlackboardVariable<bool> TargetDetected;
     [SerializeReference] public BlackboardVariable<TargetFollower> TargetFollower;
+    [SerializeReference] public BlackboardVariable<float> timerToUpdateTarget;
 
     protected override Status OnStart()
     {
@@ -22,7 +23,7 @@ public partial class DetectTargetWithoutSoundAction : Action
             GameObject player = GameObject.FindWithTag("Player");
             GameObject lockOnTarget = player.GetComponentsInChildren<BoxCollider>()[^1].gameObject;
 
-            if (lockOnTarget != null && lockOnTarget.layer == LayerMask.NameToLayer("LockOnTargets"))
+            if (lockOnTarget != null && lockOnTarget.layer == LayerMask.NameToLayer("LockOnPlayer"))
             {
                 Target.Value = lockOnTarget;
             }
@@ -37,6 +38,14 @@ public partial class DetectTargetWithoutSoundAction : Action
 
     protected override Status OnUpdate()
     {
+        if (timerToUpdateTarget.Value > 0)
+        {
+            timerToUpdateTarget.Value -= Time.deltaTime;
+            return Status.Running;
+        }
+
+        timerToUpdateTarget.Value = 0;
+        
         if (SightDetector.Value.Detect(Target.Value))
         {
             TargetFollower.Value.SetTarget(Target.Value.transform);

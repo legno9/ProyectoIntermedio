@@ -14,12 +14,12 @@ TagManager:
   - 
   - Water
   - UI
-  - LockOnTargets
-  - Enemy
+  - LockOnEnemy
+  - LockOnPlayer
   - GroundAndWalls
   - EnemyDeath
   - OnlyAI
-  - 
+  - Enemy
   - 
   - 
   - 

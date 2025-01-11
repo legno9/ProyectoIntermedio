@@ -13,6 +13,7 @@ public partial class DetectTargetAction : Action
     [SerializeReference] public BlackboardVariable<GameObject> Target;
     [SerializeReference] public BlackboardVariable<bool> TargetDetected;
     [SerializeReference] public BlackboardVariable<TargetFollower> TargetFollower;
+    [SerializeReference] public BlackboardVariable<bool> TargetHeared;
 
     protected override Status OnStart()
     {
@@ -21,7 +22,7 @@ public partial class DetectTargetAction : Action
             GameObject player = GameObject.FindWithTag("Player");
             GameObject lockOnTarget = player.GetComponentsInChildren<BoxCollider>()[^1].gameObject;
 
-            if (lockOnTarget != null && lockOnTarget.layer == LayerMask.NameToLayer("LockOnTargets"))
+            if (lockOnTarget != null && lockOnTarget.layer == LayerMask.NameToLayer("LockOnPlayer"))
             {
                 Target.Value = lockOnTarget;
             }
@@ -35,14 +36,21 @@ public partial class DetectTargetAction : Action
     }
     protected override Status OnUpdate()
     {
-        if (SightDetector.Value.Detect(Target.Value) || HeardDetector.Value.IsTargetDetected(Target.Value))
+        if (SightDetector.Value.Detect(Target.Value))
         {
             TargetFollower.Value.SetTarget(Target.Value.transform);
             TargetDetected.Value = true;
             return Status.Success;
         }
 
+        if (HeardDetector.Value.IsTargetDetected(Target.Value))
+        {
+            TargetHeared.Value = true;
+            return Status.Success;
+        }
+
         TargetFollower.Value.SetTarget(null);
+        TargetHeared.Value = false;
         TargetDetected.Value = false;
         return Status.Failure;
     }

@@ -19,7 +19,7 @@ public class EntityWeaponManager : MonoBehaviour
     private int currentWeapon = -1;
     private WeaponBase[] weapons;
 
-    private bool canReload = true;
+    // private bool canReload = true;
     public UnityEvent<WeaponBase> OnWeaponSwitched;
 
     public WeaponBase GetCurrentWeapon()
@@ -92,7 +92,7 @@ public class EntityWeaponManager : MonoBehaviour
         if (currentWeapon != -1 && weapons[currentWeapon] is WeaponRanged)
         {
             ((WeaponRanged)weapons[currentWeapon]).Reload();
-            canReload = true;
+            // canReload = true;
         }
     }
 
@@ -115,7 +115,7 @@ public class EntityWeaponManager : MonoBehaviour
             if (weapons[currentWeapon].PerformAttack())
             {
                 animator.SetTrigger("Attack");
-                canReload = false;
+                // canReload = false;
                 return true;
             }
             else
@@ -182,7 +182,7 @@ public class EntityWeaponManager : MonoBehaviour
 
         if (weaponToSet != currentWeapon)
         {
-            canReload = true;
+            // canReload = true;
             SelectWeapon(weaponToSet);
         }
     }

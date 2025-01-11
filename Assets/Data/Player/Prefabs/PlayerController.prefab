@@ -51,7 +51,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 2305
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &516478738015132116
 GameObject:
@@ -109,6 +109,7 @@ MonoBehaviour:
     volume: 1
     pitch: 3
     canAlertEnemies: 1
+    soundRadius: 15
     audioClipList:
     - {fileID: 8300000, guid: 588cfdbccda7f66419de73fa605b0c67, type: 3}
     - {fileID: 8300000, guid: 7c530392cf080ce448c52f0bbdee2c16, type: 3}
@@ -118,6 +119,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     canAlertEnemies: 1
+    soundRadius: 3
     audioClipList:
     - {fileID: 8300000, guid: 95abe3a311310a947b1c4e04b9bcbaaa, type: 3}
   muzzleFlash: {fileID: 100006, guid: bc2f98f87dbaecb43b6dc12605e55545, type: 3}
@@ -259,7 +261,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 2305
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &1461699747004039926
 GameObject:
@@ -349,6 +351,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     canAlertEnemies: 1
+    soundRadius: 15
     audioClipList:
     - {fileID: 8300000, guid: 06159b3c7c5bbc748bbccf3e2ef47342, type: 3}
     - {fileID: 8300000, guid: c14f19403e285d14d87898fc6c02305b, type: 3}
@@ -362,6 +365,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     canAlertEnemies: 1
+    soundRadius: 3
     audioClipList:
     - {fileID: 8300000, guid: 2abafbe56b88f7445ae51c4675981bf9, type: 3}
   muzzleFlash: {fileID: 100006, guid: 8db559c1c66def443964cab349f28d6e, type: 3}
@@ -641,7 +645,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 2305
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &2887261491465516758
 GameObject:
@@ -768,7 +772,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 2305
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &3613889289697229348
 GameObject:
@@ -821,7 +825,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 2305
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &3696383269438744753
 GameObject:
@@ -874,7 +878,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 2305
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &3894372837810566760
 GameObject:
@@ -1013,7 +1017,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 2305
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &4318028952250982013
 GameObject:
@@ -1066,7 +1070,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 2305
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &4388299428241772961
 GameObject:
@@ -1124,12 +1128,14 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     canAlertEnemies: 1
+    soundRadius: 15
     audioClipList:
     - {fileID: 8300000, guid: c9e8ab80a541b4c469a0e4d3c3736a1e, type: 3}
   reloadSounds:
     volume: 1
     pitch: 1
     canAlertEnemies: 1
+    soundRadius: 3
     audioClipList:
     - {fileID: 8300000, guid: 78079e595f8289e4d93a3019a13c8fbf, type: 3}
   muzzleFlash: {fileID: 100006, guid: 6955d34f180999b49b65a0f7437610dc, type: 3}
@@ -1239,7 +1245,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 2305
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &4719051163148069407
 GameObject:
@@ -1283,7 +1289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5970651508626568562}
   - component: {fileID: 6097125609649896669}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LockOnTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1377,7 +1383,7 @@ MonoBehaviour:
   range: 15
   layerMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 2305
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &6048788288214897268
 GameObject:
@@ -1430,7 +1436,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 2305
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &6898083446721829088
 GameObject:
@@ -1483,7 +1489,7 @@ MonoBehaviour:
   range: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 2305
   bulletTrailPrefab: {fileID: 2135075977828541915, guid: b10953d25cb3d394fa3b90b36745edfc, type: 3}
 --- !u!1 &7044600273272631463
 GameObject:
@@ -1915,6 +1921,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     canAlertEnemies: 1
+    soundRadius: 3
     audioClipList:
     - {fileID: 8300000, guid: 42c42b0a11573cb47be1893736a7f0ab, type: 3}
     - {fileID: 8300000, guid: daa3593f8f536d147a4a685ec3cea7f5, type: 3}
@@ -1951,12 +1958,14 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     canAlertEnemies: 0
+    soundRadius: 15
     audioClipList:
     - {fileID: 8300000, guid: 6dc3ed9f1c0267b48967093c47e9012a, type: 3}
   cantReloadSounds:
     volume: 1
     pitch: 1
     canAlertEnemies: 0
+    soundRadius: 3
     audioClipList:
     - {fileID: 8300000, guid: 615d93880caed8f488216acfa6c10025, type: 3}
 --- !u!114 &7672550399624617028
@@ -2026,6 +2035,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
+  hurtSounds:
+    volume: 1
+    pitch: 1
+    canAlertEnemies: 0
+    soundRadius: 3
+    audioClipList: []
+  deathSounds:
+    volume: 1
+    pitch: 1
+    canAlertEnemies: 0
+    soundRadius: 3
+    audioClipList: []
   passiveRegenRate: 1
   passiveRegenDelay: 10
   invulnerabilityTime: 0.5

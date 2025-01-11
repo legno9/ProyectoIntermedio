@@ -224,7 +224,7 @@ public class CameraController : MonoBehaviour
 
         foreach (var target in targets)
         {
-            if (Physics.Linecast(transform.position, target.transform.position, out RaycastHit hit, lockOnBlockingLayers) ||
+            if (Physics.Linecast(mainCamera.transform.position, target.transform.position, out RaycastHit hit, lockOnBlockingLayers) ||
                 (hit.collider && target))
             {
                 collidersIgnored.Add(target);

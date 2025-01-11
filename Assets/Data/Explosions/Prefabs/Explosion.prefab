@@ -57,7 +57,8 @@ MonoBehaviour:
   explosionSounds:
     volume: 1
     pitch: 1
-    isFromPlayer: 1
+    canAlertEnemies: 1
+    soundRadius: 15
     audioClipList:
     - {fileID: 8300000, guid: 2b2f82ade1af5c84a9b7722249f1bfa3, type: 3}
     - {fileID: 8300000, guid: 3ad0788a629c56c428331bd2defec7cd, type: 3}
