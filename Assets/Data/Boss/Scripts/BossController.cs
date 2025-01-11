@@ -26,6 +26,7 @@ public class BossController : MonoBehaviour, IMovingAnimatable
     private EntityHealth entityHealth;
 
     public UnityEvent OnAttack;
+    public UnityEvent OnKilled;
     private bool isActivated = false;
 
     // Flinch Meter
@@ -262,6 +263,7 @@ public class BossController : MonoBehaviour, IMovingAnimatable
         entityHealth.enabled = false;
         hurtCollider.enabled = false;
         isKnockedDown = true;
+        OnKilled?.Invoke();
         Invoke("LoadVictoryScene", 3f);
     }
 

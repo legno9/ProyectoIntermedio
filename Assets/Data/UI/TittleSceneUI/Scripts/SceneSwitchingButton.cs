@@ -26,14 +26,7 @@ public class SceneSwitchingButton : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "VictoryScene")
         {
-            if (LevelManager.Instance.GetNextLevel() == null)
-            {
-                buttonText.text = "Main Menu";
-            }
-            else
-            {
-                buttonText.text = "Next Level";
-            }
+            buttonText.text = "Main Menu";
         }
     }
 

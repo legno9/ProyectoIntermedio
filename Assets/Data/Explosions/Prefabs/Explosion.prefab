@@ -49,10 +49,10 @@ MonoBehaviour:
   radius: 5
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2048
   occluderLayerMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 2304
   visualExplosionPrefab: {fileID: 8442669069253257524, guid: 3cd504a1b37d6874191f337bae328b2a, type: 3}
   explosionSounds:
     volume: 1

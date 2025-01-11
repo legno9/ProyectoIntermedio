@@ -1,11 +1,13 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class PlayerDeath : MonoBehaviour
 {
     // [SerializeField] private float delay = 5f;
+    public UnityEvent OnPlayerDeath;
 
     private void OnEnable()
     {
@@ -41,6 +43,7 @@ public class PlayerDeath : MonoBehaviour
         }
 
         GetComponentInChildren<Ragdollizer>().Ragdollize();
+        OnPlayerDeath?.Invoke();
 
         Invoke("LoadDefeatScene", 3f);
     }

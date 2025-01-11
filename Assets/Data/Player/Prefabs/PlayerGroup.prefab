@@ -30,8 +30,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2082857136504000425}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.014529575, y: -0.7069576, z: 0.014529576, w: 0.70695746}
-  m_LocalPosition: {x: 2.4847596, y: 0.10217905, z: 0.00000023841858}
+  m_LocalRotation: {x: 0.020548105, y: 0, z: 6.585445e-10, w: 0.9997889}
+  m_LocalPosition: {x: 0.00000023841858, y: 0.10217884, z: -2.4847586}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
-    m_Value: 1
+    Enabled: 1
+    m_Value: 5
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -115,7 +115,7 @@ MonoBehaviour:
     SplineCurvature: 0
   RecenteringTarget: 2
   HorizontalAxis:
-    Value: 0
+    Value: 90
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -211,7 +211,7 @@ MonoBehaviour:
       Enabled: 1
       Input:
         InputAction: {fileID: 5468729950351194674, guid: 9e3a4e08005ca914c988ce6821d3c269, type: 3}
-        Gain: 100
+        Gain: 80
         LegacyInput: 
         LegacyGain: 0
         CancelDeltaTime: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
       Enabled: 1
       Input:
         InputAction: {fileID: 5468729950351194674, guid: 9e3a4e08005ca914c988ce6821d3c269, type: 3}
-        Gain: -50
+        Gain: -40
         LegacyInput: 
         LegacyGain: 0
         CancelDeltaTime: 0
@@ -292,8 +292,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3117523561557517234}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.01811401, y: -0.7068748, z: 0.018114014, w: 0.7068747}
-  m_LocalPosition: {x: 0.9961902, y: 0.051089287, z: 0.00000011920929}
+  m_LocalRotation: {x: 0.025617141, y: 0.0000000842937, z: -0.0000000013170891, w: 0.9996719}
+  m_LocalPosition: {x: 0.00000011920929, y: 0.05108942, z: -0.9961902}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -313,8 +313,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
-    m_Value: 1
+    Enabled: 1
+    m_Value: 5
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -377,7 +377,7 @@ MonoBehaviour:
     SplineCurvature: 0
   RecenteringTarget: 2
   HorizontalAxis:
-    Value: 0
+    Value: 90
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -473,7 +473,7 @@ MonoBehaviour:
       Enabled: 1
       Input:
         InputAction: {fileID: 5468729950351194674, guid: 9e3a4e08005ca914c988ce6821d3c269, type: 3}
-        Gain: 100
+        Gain: 60
         LegacyInput: 
         LegacyGain: 0
         CancelDeltaTime: 0
@@ -486,7 +486,7 @@ MonoBehaviour:
       Enabled: 1
       Input:
         InputAction: {fileID: 5468729950351194674, guid: 9e3a4e08005ca914c988ce6821d3c269, type: 3}
-        Gain: -50
+        Gain: -30
         LegacyInput: 
         LegacyGain: 0
         CancelDeltaTime: 0

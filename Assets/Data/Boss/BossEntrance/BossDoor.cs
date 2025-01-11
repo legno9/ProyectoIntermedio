@@ -4,6 +4,7 @@ public class BossDoor : MonoBehaviour
 {
     [SerializeField] private BossController bossController;
     [SerializeField] private AudioSource musicSource;
+    [SerializeField] private CanvasGroup bossCanvas;
     private Animator animator;
     private bool bossActive = false;
 
@@ -20,6 +21,7 @@ public class BossDoor : MonoBehaviour
             animator.SetTrigger("CloseDoor");
             bossActive = true;
             musicSource.enabled = true;
+            bossCanvas.alpha = 1f;
         }
     }
 }
