@@ -571,7 +571,7 @@ MonoBehaviour:
   maxDistance: 1000
   layerMask:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 384
   cameraController: {fileID: 681136152370539197}
   lookAtTransform: {fileID: 6764919051798343282}
   notAimingCam: {fileID: 6435711645874426657}
@@ -991,19 +991,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3223752461236072757, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99970144
+      value: 0.5535833
       objectReference: {fileID: 0}
     - target: {fileID: 3223752461236072757, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.01147815
+      value: 0.3019843
       objectReference: {fileID: 0}
     - target: {fileID: 3223752461236072757, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.02157151
+      value: 0.56952596
       objectReference: {fileID: 0}
     - target: {fileID: 3223752461236072757, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00024767497
+      value: -0.5272487
       objectReference: {fileID: 0}
     - target: {fileID: 3455821310910884460, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: aimTarget
@@ -1019,19 +1019,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5084905819732871175, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99970144
+      value: 0.5535833
       objectReference: {fileID: 0}
     - target: {fileID: 5084905819732871175, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.01147815
+      value: 0.3019843
       objectReference: {fileID: 0}
     - target: {fileID: 5084905819732871175, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.02157151
+      value: 0.56952596
       objectReference: {fileID: 0}
     - target: {fileID: 5084905819732871175, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00024767497
+      value: -0.5272487
       objectReference: {fileID: 0}
     - target: {fileID: 5303812731816001677, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: aimTarget
@@ -1051,19 +1051,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5901835073906216813, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9997014
+      value: 0.5535833
       objectReference: {fileID: 0}
     - target: {fileID: 5901835073906216813, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.011478898
+      value: 0.3019843
       objectReference: {fileID: 0}
     - target: {fileID: 5901835073906216813, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.021571506
+      value: 0.56952596
       objectReference: {fileID: 0}
     - target: {fileID: 5901835073906216813, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0002476911
+      value: -0.5272487
       objectReference: {fileID: 0}
     - target: {fileID: 6076431381460487245, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: aimTarget
@@ -1075,7 +1075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8708720843655630046, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: maxAmmo
-      value: 25
+      value: 2500
       objectReference: {fileID: 0}
     - target: {fileID: 8816191659191880192, guid: 189157ba9cdd3ad4980edfde557767d9, type: 3}
       propertyPath: aimTarget

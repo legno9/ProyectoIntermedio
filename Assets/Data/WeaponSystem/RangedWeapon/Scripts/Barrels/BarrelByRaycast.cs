@@ -40,14 +40,21 @@ public class BarrelByRaycast : BarrelBase, IHitter
 
         if (colliders.Length == 0) // No overlaping targets, we can safely raycast
         {
-            if (Physics.Raycast(transform.position, normalizedBulletDirection, out RaycastHit hitInfo, range, layerMask))
+            if (Physics.Raycast(bulletStartPosition, normalizedBulletDirection, out RaycastHit hitInfo, range, layerMask))
             {
                 bulletEndPosition = hitInfo.point;
                 HurtCollider hurtCollider = hitInfo.collider.GetComponent<HurtCollider>();
 
                 if (hurtCollider != null)
                 {
-                    hurtCollider.NotifyTrigger(this, bulletEndPosition, hitInfo.normal);
+                    if (Physics.Raycast(hitInfo.point, -normalizedBulletDirection, out RaycastHit hit2Info, Vector3.Distance(hitInfo.point, bulletStartPosition), layerMask))
+                    {
+                        bulletEndPosition = hit2Info.point;
+                    }
+                    else
+                    {
+                        hurtCollider.NotifyTrigger(this, bulletEndPosition, hitInfo.normal);
+                    }
                 }
             }
         }
