@@ -5,6 +5,6 @@ public class SceneInitializer : MonoBehaviour
 {
     private void Start()
     {
-        LevelManager.Instance.SetCurrentScene(SceneManager.GetActiveScene().name);
+        LevelManager.Instance?.SetCurrentScene(SceneManager.GetActiveScene().name);
     }
 }

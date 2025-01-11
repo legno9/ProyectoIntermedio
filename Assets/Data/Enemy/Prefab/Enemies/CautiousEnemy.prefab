@@ -458,6 +458,7 @@ GameObject:
   - component: {fileID: 5900981060325686139}
   - component: {fileID: 7391778307643198817}
   - component: {fileID: 8029000853831327177}
+  - component: {fileID: 2272911954888709722}
   m_Layer: 11
   m_Name: CautiousEnemy
   m_TagString: Untagged
@@ -716,13 +717,25 @@ MonoBehaviour:
     pitch: 1
     canAlertEnemies: 0
     soundRadius: 3
-    audioClipList: []
+    audioClipList:
+    - {fileID: 8300000, guid: 323fe01f7b57ce7429681e5705d919fe, type: 3}
+    - {fileID: 8300000, guid: 145347f187ba6fc409c15f98dd0433a5, type: 3}
+    - {fileID: 8300000, guid: e6544bfcabf07624abac3a6b3c06b950, type: 3}
+    - {fileID: 8300000, guid: c5917d177f7f4de4aa1b91511805ff1a, type: 3}
+    - {fileID: 8300000, guid: 29a7a89cd08c1194d84f79eb943b3d24, type: 3}
+    - {fileID: 8300000, guid: 97fd7a0ee1184c647a98ce5df3104df7, type: 3}
+    - {fileID: 8300000, guid: 013241cf3a5444c43aa738068f3317ed, type: 3}
+    - {fileID: 8300000, guid: 7d95948211f2aa04799ed78d77169b89, type: 3}
   deathSounds:
     volume: 1
-    pitch: 1
+    pitch: 0.75
     canAlertEnemies: 0
     soundRadius: 3
-    audioClipList: []
+    audioClipList:
+    - {fileID: 8300000, guid: f270b1525a5727646b694d97e17fc2a3, type: 3}
+    - {fileID: 8300000, guid: 3eecd44fbfb99184da1cc0b1d3900d24, type: 3}
+    - {fileID: 8300000, guid: 229a93432ab892d468ba5316168d3203, type: 3}
+    - {fileID: 8300000, guid: 4920d40d6e1ac5a42b1100b136461dd2, type: 3}
   passiveRegenRate: 1
   passiveRegenDelay: 10
   invulnerabilityTime: 0
@@ -789,6 +802,23 @@ MonoBehaviour:
       Value: {fileID: 7394585377780376295, guid: 046414ff9a9b29d4d81919b41b7ce5e5, type: 3}
     - Key: 2
       Value: {fileID: 5404440742565141032, guid: d34b0ae25f87966479938f555162c956, type: 3}
+--- !u!114 &2272911954888709722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3920468220058072491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af0bbe6933b2714ea999241d383939a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodVFX: {fileID: 3497956134262052777, guid: e4607d825573fc34aa8c005af93e3902, type: 3}
+  bleedingSpread: 30
+  bloodSpawnDistance: 0.5
+  bloodPuddleHeight: 0.75
+  bloodPuddleRadius: 1
 --- !u!1 &5234106647047711981
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,7 +977,7 @@ MonoBehaviour:
     canAlertEnemies: 0
     soundRadius: 3
     audioClipList: []
-  muzzleFlash: {fileID: 100006, guid: b8ce07d8537233e46953f2710565f6b7, type: 3}
+  muzzleFlash: {fileID: 100006, guid: 8db559c1c66def443964cab349f28d6e, type: 3}
   infiniteAmmo: 1
   maxAmmo: 25
   weaponType: 0
@@ -1075,7 +1105,7 @@ MonoBehaviour:
     canAlertEnemies: 0
     soundRadius: 3
     audioClipList: []
-  muzzleFlash: {fileID: 100006, guid: b8ce07d8537233e46953f2710565f6b7, type: 3}
+  muzzleFlash: {fileID: 100006, guid: 8db559c1c66def443964cab349f28d6e, type: 3}
   infiniteAmmo: 1
   maxAmmo: 25
   weaponType: 0

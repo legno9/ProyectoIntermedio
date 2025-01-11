@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public int CurrentScore { get; private set; }
     public float GameTime { get; private set; }
 
+    [SerializeField] private bool pauseOnAwake = false;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -18,16 +20,22 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
         InitializeGame();
     }
 
     private void InitializeGame()
     {
-        IsPaused = false;
+        if (pauseOnAwake)
+        {
+            PauseGame();
+        }
+        else
+        {
+            ResumeGame();
+        }
+
         CurrentScore = 0;
         GameTime = 0f;
-        Time.timeScale = 1f;
     }
 
     private void Update()

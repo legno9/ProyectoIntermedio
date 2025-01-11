@@ -42,6 +42,11 @@ public class PlayerDeath : MonoBehaviour
 
         GetComponentInChildren<Ragdollizer>().Ragdollize();
 
-        //SceneTransitionManager.Instance.LoadSceneWithFixedDelay("DefeatScene");
+        Invoke("LoadDefeatScene", 3f);
+    }
+
+    private void LoadDefeatScene()
+    {
+        SceneManager.LoadScene("DefeatScene");
     }
 }

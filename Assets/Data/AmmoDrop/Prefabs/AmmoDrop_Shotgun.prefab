@@ -47,11 +47,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
-  amount: 20
+  amount: 5
   pickupSounds:
     volume: 1
     pitch: 1
     canAlertEnemies: 0
+    soundRadius: 2
     audioClipList:
     - {fileID: 8300000, guid: 6e1f595a6bd3eaf458f4673647d7da50, type: 3}
 --- !u!65 &2081795285934201725

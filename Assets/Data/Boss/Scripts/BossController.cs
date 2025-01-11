@@ -6,6 +6,7 @@ using UnityEngine.AI;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class BossController : MonoBehaviour, IMovingAnimatable
 {
@@ -25,6 +26,7 @@ public class BossController : MonoBehaviour, IMovingAnimatable
     private EntityHealth entityHealth;
 
     public UnityEvent OnAttack;
+    private bool isActivated = false;
 
     // Flinch Meter
     [SerializeField] private float flinchMeterMax = 100f;
@@ -38,6 +40,7 @@ public class BossController : MonoBehaviour, IMovingAnimatable
     // Sounds
     [SerializeField] private AudioClipList axeAttackSounds;
     [SerializeField] private AudioClipList specialAttackSounds;
+    [SerializeField] private AudioClipList stunnedSounds;
 
     private void Awake()
     {
@@ -48,7 +51,11 @@ public class BossController : MonoBehaviour, IMovingAnimatable
 
         var emission = axeTrailVFX.emission;
         emission.enabled = false;
+    }
 
+    public void Activate()
+    {
+        isActivated = true;
         EnableMovement();
     }
 
@@ -80,6 +87,11 @@ public class BossController : MonoBehaviour, IMovingAnimatable
         foreach (BossAttack attack in attacks)
         {
             attack.ReduceCooldown(Time.deltaTime);
+        }
+
+        if (!isActivated)
+        {
+            return;
         }
 
         Vector3 playerDir = Vector3.ProjectOnPlane(playerTransform.position - transform.position, Vector3.up).normalized;
@@ -130,7 +142,10 @@ public class BossController : MonoBehaviour, IMovingAnimatable
         var emission = axeTrailVFX.emission;
         emission.enabled = false;
 
-        EnableMovement();
+        if (isActivated)
+        {
+            EnableMovement();
+        }
     }
 
     private void MoveAndRotate(float angleDiff)
@@ -163,6 +178,7 @@ public class BossController : MonoBehaviour, IMovingAnimatable
     {
         navMeshAgent.isStopped = false;
         navMeshAgent.updatePosition = true;
+        navMeshAgent.SetDestination(playerTransform.position);
     }
 
     private void DisableMovement()
@@ -195,6 +211,7 @@ public class BossController : MonoBehaviour, IMovingAnimatable
 
         if (flinchMeter == flinchMeterMax && damage >= strongAttackThreshold && !isKnockedDown)
         {
+            stunnedSounds.PlayAtPointRandom(transform.position);
             animator.SetTrigger("KnockedDown");
             flinchMeter = 0f;
             isKnockedDown = true;
@@ -245,7 +262,12 @@ public class BossController : MonoBehaviour, IMovingAnimatable
         entityHealth.enabled = false;
         hurtCollider.enabled = false;
         isKnockedDown = true;
-        Destroy(gameObject, 5f);
+        Invoke("LoadVictoryScene", 3f);
+    }
+
+    private void LoadVictoryScene()
+    {
+        SceneManager.LoadScene("VictoryScene");
     }
 }
 

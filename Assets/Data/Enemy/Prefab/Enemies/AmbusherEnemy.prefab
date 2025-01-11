@@ -50,16 +50,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3920468220058072491, guid: ac3936119aab9bb43adb9c92a3bcf18f, type: 3}
       propertyPath: m_Name
-      value: AmbusherEnemy Variant
+      value: AmbusherEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 4008260931874413462, guid: ac3936119aab9bb43adb9c92a3bcf18f, type: 3}
+      propertyPath: muzzleFlash
+      value: 
+      objectReference: {fileID: 100006, guid: 8db559c1c66def443964cab349f28d6e, type: 3}
     - target: {fileID: 8160964212699673402, guid: ac3936119aab9bb43adb9c92a3bcf18f, type: 3}
       propertyPath: m_Graph
       value: 
       objectReference: {fileID: 6152866694863090936, guid: 80c9c20a696467b479297af886ad737b, type: 2}
     - target: {fileID: 8160964212699673402, guid: ac3936119aab9bb43adb9c92a3bcf18f, type: 3}
+      propertyPath: m_BlackboardVariableOverridesList.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8160964212699673402, guid: ac3936119aab9bb43adb9c92a3bcf18f, type: 3}
       propertyPath: managedReferences[814258308158849493].m_Value
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8597812630321722878, guid: ac3936119aab9bb43adb9c92a3bcf18f, type: 3}
+      propertyPath: muzzleFlash
+      value: 
+      objectReference: {fileID: 100006, guid: 8db559c1c66def443964cab349f28d6e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
