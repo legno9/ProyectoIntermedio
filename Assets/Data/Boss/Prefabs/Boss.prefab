@@ -4969,7 +4969,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  deactivateOnHit: 0
+  deactivateOnHit: 1
   affectedTags:
   - Player
   - Parry
@@ -5121,7 +5121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  deactivateOnHit: 0
+  deactivateOnHit: 1
   affectedTags:
   - Player
   - Parry
@@ -5232,7 +5232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  deactivateOnHit: 0
+  deactivateOnHit: 1
   affectedTags:
   - Player
   - Parry
@@ -5493,7 +5493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  deactivateOnHit: 0
+  deactivateOnHit: 1
   affectedTags:
   - Player
   - Parry
