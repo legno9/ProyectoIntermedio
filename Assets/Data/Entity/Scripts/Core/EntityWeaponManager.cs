@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -13,12 +14,29 @@ public class EntityWeaponManager : MonoBehaviour
     [Header("IK")]
     [SerializeField] private List<Rig> aimRigs = new();
 
+    [Header("Melee")]
+    [Tooltip("If true, the player will reset the attack combo when switching between light and heavy attacks")]
+    [SerializeField]bool resetAttackCombo = false;
 
+    private struct AttackData
+    {
+        public WeaponMelee weapon;
+        public bool isLightAttack;
+        public int maxCombo;
+    }
+
+    private PlayerMeleeAnimation playerMeleeAnimation;
+    private Coroutine resetCombo;
+    private bool isAttacking = false;
+    private bool attackBuffered = false;
+    private int comboCount = 0;
+    private bool currentAttackTypeIsLight;
+    private AttackData currentAttack = new();
+    private AttackData bufferedAttack = new();
     private Animator animator;
     private RuntimeAnimatorController originalAnimatorController;
     private int currentWeapon = -1;
     private WeaponBase[] weapons;
-
     // private bool canReload = true;
     public UnityEvent<WeaponBase> OnWeaponSwitched;
 
@@ -53,6 +71,7 @@ public class EntityWeaponManager : MonoBehaviour
 
     private void Awake()
     {
+        playerMeleeAnimation = GetComponent<PlayerMeleeAnimation>();
         animator = GetComponentInChildren<Animator>();
         originalAnimatorController = animator.runtimeAnimatorController;
         weapons = weaponsParent.GetComponentsInChildren<WeaponBase>(true);
@@ -67,25 +86,29 @@ public class EntityWeaponManager : MonoBehaviour
 
     private void OnEnable()
     {
+        playerMeleeAnimation?.OnAttackAnimationComplete.AddListener(OnAttackEnd);
         foreach (AnimationEventForwarder var in GetComponentsInChildren<AnimationEventForwarder>())
         {
-            var.OnMeleeAttackEvent.AddListener(OnAttackEvent);
+            // var.OnMeleeAttackEvent.AddListener(OnAttackEvent);
             var.OnReloadFinishedEvent.AddListener(OnReloadEvent);
         }
     }
 
     private void OnDisable()
     {
+        playerMeleeAnimation?.OnAttackAnimationComplete.AddListener(OnAttackEnd);
+
         foreach (AnimationEventForwarder var in GetComponentsInChildren<AnimationEventForwarder>())
         {
-            var.OnMeleeAttackEvent.RemoveListener(OnAttackEvent);
+            // var.OnMeleeAttackEvent.RemoveListener(OnAttackEvent);
+            var.OnReloadFinishedEvent.AddListener(OnReloadEvent);
         }
     }
 
-    private void OnAttackEvent()
-    {
-        weaponsParent.GetComponentInChildren<WeaponMelee>().ActivateHitCollider();
-    }
+    // private void OnAttackEvent()
+    // {
+    //     weaponsParent.GetComponentInChildren<WeaponMelee>().ActivateHitCollider();
+    // }
 
     private void OnReloadEvent()
     {
@@ -108,11 +131,27 @@ public class EntityWeaponManager : MonoBehaviour
         }
     }
 
-    public bool PerformAttack()
+    public bool PerformAttack(bool isLightAttack)
     {
         if (currentWeapon != -1)
         {
-            if (weapons[currentWeapon].PerformAttack())
+            if (weapons[currentWeapon] is WeaponMelee)
+            {
+                if (!isAttacking)
+                {
+                    CreateAttack(ref currentAttack, isLightAttack);
+                    currentAttackTypeIsLight = isLightAttack;
+                    ExecuteAttack();
+                }
+                else if (!attackBuffered && playerMeleeAnimation.CanBufferAttack())
+                {
+                    CreateAttack(ref bufferedAttack, isLightAttack);
+                    attackBuffered = true;
+                }
+
+                return true;
+            }
+            if (weapons[currentWeapon].PerformAttack() && weapons[currentWeapon] is WeaponRanged)
             {
                 animator.SetTrigger("Attack");
                 // canReload = false;
@@ -210,12 +249,19 @@ public class EntityWeaponManager : MonoBehaviour
                 float attackSpeedMultiplier = ((WeaponRanged)weapons[currentWeapon]).GetAttacksPerSecond() * ((WeaponRanged)weapons[currentWeapon]).GetAttackAnimationLength();
                 animator.SetFloat("AttackSpeedMultiplier", attackSpeedMultiplier);
                 animator.SetBool("HasRifleEquipped", true);
-                animator.SetBool("HasKnifeEquipped", false);
+                if (DoesParameterExist(animator, "HasKatanaEquipped"))
+                {
+                    animator.SetBool("HasKatanaEquipped", false);
+                }
             }
             else if (weapons[currentWeapon] is WeaponMelee)
             {
+                playerMeleeAnimation.WeaponChanged(weapons[currentWeapon].GetOverrideController());
                 animator.SetBool("HasRifleEquipped", false);
-                animator.SetBool("HasKnifeEquipped", true);
+                if (DoesParameterExist(animator, "HasKatanaEquipped"))
+                {
+                    animator.SetBool("HasKatanaEquipped", true);
+                }
             }
 
             OnWeaponSwitched?.Invoke(weapons[currentWeapon]);
@@ -224,9 +270,87 @@ public class EntityWeaponManager : MonoBehaviour
         {
             animator.runtimeAnimatorController = originalAnimatorController;
             animator.SetBool("HasRifleEquipped", false);
-            animator.SetBool("HasKnifeEquipped", false);
+            if (DoesParameterExist(animator, "HasKatanaEquipped"))
+            {
+                animator.SetBool("HasKatanaEquipped", false);
+            }
 
             OnWeaponSwitched?.Invoke(null);
         }
     }
+
+    private bool DoesParameterExist(Animator animator, string paramName)
+    {
+        foreach (AnimatorControllerParameter param in animator.parameters)
+        {
+            if (param.name == paramName)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+#region MeleeCombat    
+    private void CreateAttack(ref AttackData attack, bool isLightAttack)
+    {
+        WeaponMelee weapon = (WeaponMelee)weapons[currentWeapon];
+        attack.weapon = weapon;
+        attack.isLightAttack = isLightAttack;
+        attack.maxCombo = isLightAttack ? weapon.LightComboCount() : weapon.HeavyComboCount();
+    }
+
+    private void ExecuteAttack()
+    {   
+        if (currentAttack.maxCombo == 0){return;}
+
+        isAttacking = true;
+
+        if (resetAttackCombo && currentAttackTypeIsLight != currentAttack.isLightAttack)
+        {
+            comboCount = 0;
+        }
+        else
+        {
+            comboCount = comboCount >= currentAttack.maxCombo ? 0 : comboCount;
+        }
+        
+        playerMeleeAnimation.StartAttackAnimation(currentAttack.weapon, comboCount, currentAttack.isLightAttack);
+        currentAttack.weapon.Attacking(isAttacking);
+
+        currentAttackTypeIsLight = currentAttack.isLightAttack;
+        comboCount++;
+        
+        if (resetCombo != null)
+        {
+            StopCoroutine(resetCombo);
+            resetCombo = null;
+        }
+    }
+
+    private void OnAttackEnd()
+    {   
+        isAttacking = false;
+        currentAttack.weapon.Attacking(isAttacking);
+
+        
+        if (attackBuffered)
+        {
+            currentAttack = bufferedAttack;
+            attackBuffered = false;
+            ExecuteAttack();
+            return;
+        }
+
+        resetCombo = StartCoroutine(ResetComboAfterDelay());
+        playerMeleeAnimation.AttackSequenceEnded();
+    }
+
+    private IEnumerator ResetComboAfterDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        comboCount = 0;
+    }
+
+#endregion MeleeCombat
 }

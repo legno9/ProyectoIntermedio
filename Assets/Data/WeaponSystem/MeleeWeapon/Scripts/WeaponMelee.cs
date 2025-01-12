@@ -3,7 +3,9 @@ using UnityEngine;
 public class WeaponMelee : WeaponBase
 {
     [SerializeField] protected float damage = 1f;
-    protected HitCollider hitCollider;
+    protected HitCollider[] hitColliders;
+    public AnimationClip[] lightAttacks;
+    public AnimationClip[] heavyAttacks;
 
     //[Header("Sound Settings")]
     //[SerializeField] protected AudioClipList attackSounds = new AudioClipList();
@@ -11,34 +13,42 @@ public class WeaponMelee : WeaponBase
     public override void Init()
     {
         base.Init();
-        hitCollider = GetComponentInChildren<HitCollider>(true);
-        hitCollider.SetDamage(damage);
-        lastAttackTime = Time.time - 1f / attacksPerSecond;
+        hitColliders = GetComponentsInChildren<HitCollider>(true);
+        foreach (var hitCollider in hitColliders)
+        {
+            hitCollider.SetDamage(damage);
+            hitCollider.gameObject.SetActive(false);
+        }
+        
     }
 
     public override void Deselect(Animator animator)
     {
         gameObject.SetActive(false);
         animator.runtimeAnimatorController = null;
-        hitCollider.gameObject.SetActive(false);
+        Attacking(false);
     }
 
     public override bool PerformAttack()
     {
-        if (Time.time - lastAttackTime > 1f / attacksPerSecond)
+        return true;
+    }
+
+    public void Attacking(bool value)
+    {
+        foreach (var hitCollider in hitColliders)
         {
-            lastAttackTime = Time.time;
-            //attackSounds.PlayAtPointRandom(transform.position);
-            return true;
-        }
-        else
-        {
-            return false;
+            hitCollider.gameObject.SetActive(value);
         }
     }
 
-    public void ActivateHitCollider()
+    public int LightComboCount()
     {
-        hitCollider.gameObject.SetActive(true);
+        return lightAttacks.Length;
+    }
+
+    public int HeavyComboCount()
+    {
+        return heavyAttacks.Length;
     }
 }

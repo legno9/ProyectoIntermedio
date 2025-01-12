@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private AudioClipList cantReloadSounds;
     private EntityWeaponManager weaponManager;
     private bool attacking = false;
+    private bool isLigtAttack = false;
 
     private void Awake()
     {
@@ -17,7 +18,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (attacking)
         {
-            weaponManager.PerformAttack();
+            weaponManager.PerformAttack(isLigtAttack);
         }
     }
 
@@ -25,12 +26,34 @@ public class PlayerAttack : MonoBehaviour
     {
         if (value.Get<float>() == 1f)
         {
+            if (CheckMeleeAttack())
+            {
+                isLigtAttack = true;
+                weaponManager.PerformAttack(isLigtAttack);
+                return;
+            }
+            
             attacking = true;
         }
         else
         {
             attacking = false;
         }
+    }
+
+    private void OnHeavyAttack(InputValue value)
+    {
+        if (CheckMeleeAttack())
+        {
+            isLigtAttack = false;
+            weaponManager.PerformAttack(isLigtAttack);
+            return;
+        }
+    }
+
+    private bool CheckMeleeAttack()
+    {
+        return !weaponManager.GetCurrentWeaponIsRanged();
     }
 
     private void OnReload(InputValue value)

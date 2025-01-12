@@ -6,6 +6,7 @@ public class HitCollider : MonoBehaviour, IHitter
 {
     [Header("Config")]
     [SerializeField] private float damage = 10;
+    [SerializeField] private bool deactivateOnHit = false;
     [SerializeField] private string[] affectedTags;
 
     [Header("Events")]
@@ -29,6 +30,8 @@ public class HitCollider : MonoBehaviour, IHitter
             hurtCollider.NotifyCollision(this, collision);
             OnHit.Invoke();
             OnHitWithTag.Invoke(collision.collider.tag);
+            
+            if (deactivateOnHit){gameObject.SetActive(false);}
         }
     }
 
@@ -42,6 +45,9 @@ public class HitCollider : MonoBehaviour, IHitter
             hurtCollider.NotifyTrigger(this, triggerPoint, normal);
             OnHit.Invoke();
             OnHitWithTag.Invoke(other.tag);
+
+            if (deactivateOnHit){gameObject.SetActive(false);}
+
         }
     }
 }

@@ -15,6 +15,11 @@ public abstract class WeaponBase : MonoBehaviour
         return timeSinceLastAttack / timePerAttack;
     }
 
+    public AnimatorOverrideController GetOverrideController()
+    {
+        return overrideController;
+    }
+
     public virtual void Init()
     {
         gameObject.SetActive(false);

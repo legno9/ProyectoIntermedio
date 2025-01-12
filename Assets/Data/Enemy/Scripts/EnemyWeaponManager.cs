@@ -11,7 +11,7 @@ public class EnemyWeaponManager : MonoBehaviour
     // [Header("IK")]
     // [SerializeField] private float idleOffset = 0f;
     // [SerializeField] private float inCombatStanceOffset = 39f;
-    [SerializeField] private SerializableDictionary<WeaponType, GameObject> weaponTypeAmmo ;
+    [SerializeField] private CustomSerializableDictionary<WeaponType, GameObject> weaponTypeAmmo ;
     private Animator animator;
     private RuntimeAnimatorController originalAnimatorController;
     private int currentWeapon = -1;
@@ -45,27 +45,6 @@ public class EnemyWeaponManager : MonoBehaviour
         }
 
         SelectWeapon(startingWeaponIndex);
-    }
-
-    private void OnEnable()
-    {
-        foreach (AnimationEventForwarder var in GetComponentsInChildren<AnimationEventForwarder>())
-        {
-            var.OnMeleeAttackEvent.AddListener(OnAttackEvent);
-        }
-    }
-
-    private void OnDisable()
-    {
-        foreach (AnimationEventForwarder var in GetComponentsInChildren<AnimationEventForwarder>())
-        {
-            var.OnMeleeAttackEvent.RemoveListener(OnAttackEvent);
-        }
-    }
-
-    private void OnAttackEvent()
-    {
-        weaponsParent.GetComponentInChildren<WeaponMelee>().ActivateHitCollider();
     }
 
     public bool PerformAttack()
@@ -184,12 +163,12 @@ public class EnemyWeaponManager : MonoBehaviour
 }
 
 [Serializable]
-public class KeyValuePair<TKey, TValue>
+public class CustomKeyValuePair<TKey, TValue>
 {
     public TKey Key;
     public TValue Value;
 
-    public KeyValuePair(TKey key, TValue value)
+    public CustomKeyValuePair(TKey key, TValue value)
     {
         Key = key;
         Value = value;
@@ -197,9 +176,9 @@ public class KeyValuePair<TKey, TValue>
 }
 
 [Serializable]
-public class SerializableDictionary<TKey, TValue>
+public class CustomSerializableDictionary<TKey, TValue>
 {
-    [SerializeField] private List<KeyValuePair<TKey, TValue>> items = new();
+    [SerializeField] private List<CustomKeyValuePair<TKey, TValue>> items = new();
 
     public Dictionary<TKey, TValue> ToDictionary()
     {
@@ -219,9 +198,9 @@ public class SerializableDictionary<TKey, TValue>
         items.Clear();
         foreach (var kvp in dictionary)
         {
-            items.Add(new KeyValuePair<TKey, TValue>(kvp.Key, kvp.Value));
+            items.Add(new CustomKeyValuePair<TKey, TValue>(kvp.Key, kvp.Value));
         }
     }
 
-    public List<KeyValuePair<TKey, TValue>> Items => items;
+    public List<CustomKeyValuePair<TKey, TValue>> Items => items;
 }
