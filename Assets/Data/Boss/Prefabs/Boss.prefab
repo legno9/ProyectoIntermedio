@@ -4968,7 +4968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9544619442ba65e42b9a02d7ddfcc6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 10
   deactivateOnHit: 0
   affectedTags:
   - Player
@@ -5120,7 +5120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9544619442ba65e42b9a02d7ddfcc6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 10
   deactivateOnHit: 0
   affectedTags:
   - Player
@@ -5231,7 +5231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9544619442ba65e42b9a02d7ddfcc6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 5
   deactivateOnHit: 0
   affectedTags:
   - Player
@@ -5492,7 +5492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9544619442ba65e42b9a02d7ddfcc6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 10
   deactivateOnHit: 0
   affectedTags:
   - Player
