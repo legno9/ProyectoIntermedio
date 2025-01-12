@@ -28,6 +28,10 @@ public class SightDetector : MonoBehaviour
     Collider[] colliders = new Collider[50];
     int count;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClipList detectSounds;
+    public bool targetDetected = false;
+
     public bool Detect(GameObject target)
     {
         count = Physics.OverlapSphereNonAlloc(transform.position, distance, colliders, layerMask, QueryTriggerInteraction.Collide);
@@ -43,7 +47,24 @@ public class SightDetector : MonoBehaviour
                 objects.Add(obj);
                 if (obj == target)
                 {
+                    if (!targetDetected)
+                    {
+                        detectSounds.PlayAtPointRandom(transform.position);
+                        targetDetected = true;
+                        if (TryGetComponent<HeardDetector>(out var heard))
+                        {
+                            heard.targetDetected = true;
+                        }
+                    }
                     return true;
+                }
+                else if (targetDetected)
+                {
+                    targetDetected = false;
+                    if (TryGetComponent<HeardDetector>(out var heard))
+                    {
+                        heard.targetDetected = false;
+                    }
                 }
             }
         }

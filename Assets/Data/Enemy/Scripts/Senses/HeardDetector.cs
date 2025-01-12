@@ -9,6 +9,10 @@ public class HeardDetector : MonoBehaviour
     private Dictionary<GameObject, float > objectsHeared = new();
     private GameObject target;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClipList detectSounds;
+    public bool targetDetected = false;
+
     private void Update() 
     {
         List<GameObject> itemsToRemove = new();
@@ -34,6 +38,24 @@ public class HeardDetector : MonoBehaviour
     public bool IsTargetDetected(GameObject target)
     {
         this.target = target;
+        if (objects.Contains(target) && !targetDetected)
+        {
+            detectSounds.PlayAtPointRandom(transform.position);
+            targetDetected = true;
+            if (TryGetComponent<SightDetector>(out var sight))
+            {
+                sight.targetDetected = true;
+            }
+        }
+        
+        if (!objects.Contains(target) && targetDetected)
+        {
+            targetDetected = false;
+            if (TryGetComponent<SightDetector>(out var sight))
+            {
+                sight.targetDetected = false;
+            }
+        }
         return objects.Contains(target);
     }
 

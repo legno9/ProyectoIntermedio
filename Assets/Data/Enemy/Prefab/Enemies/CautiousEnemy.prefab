@@ -207,8 +207,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1247684002812149393}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3129162, y: -0.47078693, z: 0.4349964, w: 0.70087177}
-  m_LocalPosition: {x: 0.19245866, y: 1.220526, z: 0.29685596}
+  m_LocalRotation: {x: 0.31291625, y: -0.47078687, z: 0.4349963, w: 0.7008719}
+  m_LocalPosition: {x: 0.19245873, y: 1.220526, z: 0.29685593}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1146,6 +1146,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2304
   objects: []
+  detectSounds:
+    volume: 1
+    pitch: 0.8
+    canAlertEnemies: 0
+    soundRadius: 2
+    audioClipList:
+    - {fileID: 8300000, guid: 21a13b8443c2c3d47a0959863de2e3f2, type: 3}
+  targetDetected: 0
 --- !u!114 &6399123306394620670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1160,6 +1168,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hearingRange: 15
   soundPersistence: 2
+  detectSounds:
+    volume: 1
+    pitch: 0.8
+    canAlertEnemies: 0
+    soundRadius: 2
+    audioClipList:
+    - {fileID: 8300000, guid: 21a13b8443c2c3d47a0959863de2e3f2, type: 3}
+  targetDetected: 0
 --- !u!114 &1042094661508659548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1468,7 +1484,7 @@ Transform:
   m_GameObject: {fileID: 5557770574155050712}
   serializedVersion: 2
   m_LocalRotation: {x: 0.31291625, y: -0.4707872, z: 0.4349967, w: 0.7008714}
-  m_LocalPosition: {x: 0.19245858, y: 1.2205259, z: 0.29685575}
+  m_LocalPosition: {x: 0.19245866, y: 1.2205259, z: 0.2968557}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
