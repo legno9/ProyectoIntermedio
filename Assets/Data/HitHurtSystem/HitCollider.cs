@@ -13,6 +13,9 @@ public class HitCollider : MonoBehaviour, IHitter
     public UnityEvent OnHit;
     public UnityEvent<string> OnHitWithTag;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClipList hitSounds;
+
     public float GetDamage()
     {
         return damage;
@@ -30,7 +33,9 @@ public class HitCollider : MonoBehaviour, IHitter
             hurtCollider.NotifyCollision(this, collision);
             OnHit.Invoke();
             OnHitWithTag.Invoke(collision.collider.tag);
-            
+
+            hitSounds.PlayAtPointRandom(transform.position);
+
             if (deactivateOnHit){gameObject.SetActive(false);}
         }
     }
@@ -45,6 +50,8 @@ public class HitCollider : MonoBehaviour, IHitter
             hurtCollider.NotifyTrigger(this, triggerPoint, normal);
             OnHit.Invoke();
             OnHitWithTag.Invoke(other.tag);
+
+            hitSounds.PlayAtPointRandom(transform.position);
 
             if (deactivateOnHit){gameObject.SetActive(false);}
 
