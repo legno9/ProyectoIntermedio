@@ -22,7 +22,7 @@ public class BossDoor : MonoBehaviour
             animator.SetTrigger("CloseDoor");
             bossActive = true;
             musicSource.enabled = true;
-            bossCanvas.alpha = 1f;
+            bossCanvas.gameObject.SetActive(true);
             introMusic.Stop();
         }
     }

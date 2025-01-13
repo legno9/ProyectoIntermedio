@@ -13,7 +13,6 @@ public class HurtCollider : MonoBehaviour
 
     public void NotifyCollision(IHitter collisionHitter, Collision collision)
     {
-        Debug.Log(gameObject.name + " was collisioned by " + collisionHitter);
         hitter = collisionHitter;
         OnHitWithDamage?.Invoke(hitter.GetDamage());
         OnHitWithCollision?.Invoke(hitter.GetDamage(), collision);
@@ -22,7 +21,6 @@ public class HurtCollider : MonoBehaviour
 
     public void NotifyTrigger(IHitter triggerHitter, Vector3 triggerPos, Vector3 normal)
     {
-        Debug.Log(gameObject.name + " was trigger by " + triggerHitter);
         hitter = triggerHitter;
         OnHitWithDamage?.Invoke(hitter.GetDamage());
         OnHitWithTrigger?.Invoke(hitter.GetDamage(), triggerPos, normal);

@@ -23,6 +23,8 @@ public class EntityHealth : MonoBehaviour
     [HideInInspector] public UnityEvent OnDamaged;
 
     private List<float> damageToDeal = new();
+    public float blockDamageMultiplier = 1f;
+
     private bool canBeDamaged = true;
 
     #region Debug
@@ -91,6 +93,7 @@ public class EntityHealth : MonoBehaviour
         if (!canBeDamaged)
         {
             canBeDamaged = true;
+            damageToDeal.Clear();
             return;
         }
 
@@ -98,14 +101,16 @@ public class EntityHealth : MonoBehaviour
         {
             foreach (var damage in damageToDeal)
             {
-                currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
-                OnHealthChanged?.Invoke(currentHealth, damage);
+                float finalDamage = damage * blockDamageMultiplier;
+                currentHealth = Mathf.Clamp(currentHealth - finalDamage, 0, maxHealth);
+                OnHealthChanged?.Invoke(currentHealth, finalDamage);
                 OnDamaged?.Invoke();
                 if (showDamageNumbers)
                 {
-                    Instantiate(damageNumberPopUp, transform.position + Vector3.up * 1.5f * transform.localScale.y, Quaternion.identity).GetComponent<DamageNumberPopUp>().Initialize(damage);
+                    Instantiate(damageNumberPopUp, transform.position + Vector3.up * 1.5f * transform.localScale.y, Quaternion.identity).GetComponent<DamageNumberPopUp>().Initialize(finalDamage);
                 }
             }
+            damageToDeal.Clear();
 
             currentInvulnerabilityTime = invulnerabilityTime;
             timeSinceLastDamage = 0f;

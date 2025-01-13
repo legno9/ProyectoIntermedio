@@ -7,7 +7,7 @@ public class SetEnemiesActive : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
-        if (other.TryGetComponent<CharacterController>(out var characterController))
+        if (other.CompareTag("Player"))
         {
             if (active)
             {
