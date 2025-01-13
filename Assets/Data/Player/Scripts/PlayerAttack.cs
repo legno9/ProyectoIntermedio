@@ -81,4 +81,9 @@ public class PlayerAttack : MonoBehaviour
             weaponManager.PerformChangeToNextOrPrevWeapon(mustSelectNextWeapon);
         }
     }
+
+    private void OnParry(InputValue value)
+    {
+        weaponManager.ExecuteParry(value.Get<float>() == 1f);
+    }
 }

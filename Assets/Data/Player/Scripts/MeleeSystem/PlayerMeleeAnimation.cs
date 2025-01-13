@@ -8,6 +8,7 @@ public class PlayerMeleeAnimation : MonoBehaviour
 {
     [SerializeField, Range(1f, 10f)] private float layerTransitionSpeed = 5f;
     [SerializeField] private float transitionBetweenAttacks = 0.25f;
+    [SerializeField] private float parryTransition = 0.2f;
     [HideInInspector] public UnityEvent OnAttackAnimationComplete = new ();
     [HideInInspector] public UnityEvent OnCanBuffer = new ();
     private Animator animator;
@@ -118,7 +119,7 @@ public class PlayerMeleeAnimation : MonoBehaviour
 
     public bool CanMove()
     {
-        return !animator.GetBool("IsAttacking");
+        return !animator.GetBool("IsAttacking") && !animator.GetBool("IsParrying");
     }
 
     public void AttackSequenceEnded()
@@ -129,6 +130,17 @@ public class PlayerMeleeAnimation : MonoBehaviour
     public bool CanBufferAttack()
     {
         return canBuffer;
+    }
+
+    public void ParryAnimation()
+    {
+        if (!animator.GetBool("IsAttacking"))
+        {
+            animator.SetBool("IsParrying", true);
+            animator.SetLayerWeight(attackLayer, 1);
+            animator.CrossFade("Parry", parryTransition);           
+        }
+        
     }
 
 }

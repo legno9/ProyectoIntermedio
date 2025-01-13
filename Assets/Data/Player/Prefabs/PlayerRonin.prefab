@@ -708,6 +708,9 @@ MonoBehaviour:
   - {fileID: 6116416223198703961}
   - {fileID: 554628438905685029}
   - {fileID: 2999441136804628245}
+  canParry: 0
+  parryDuration: 0.5
+  parryCollider: {fileID: 0}
   normalDamage: 2
   finisherDamage: 5
   maxCombo: 4
@@ -722,6 +725,109 @@ MonoBehaviour:
   - {fileID: 7400000, guid: bc2f939b313c77241864229807e4b88f, type: 2}
   - {fileID: 7400000, guid: ffb4c851d2689994c83b6266e8d16d71, type: 2}
   - {fileID: 7400000, guid: 7733060ff8a7de847aecc838e6b1c101, type: 2}
+--- !u!1 &987161423968088266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4610107555981437334}
+  - component: {fileID: 533934262696712741}
+  - component: {fileID: 7009587436170140037}
+  - component: {fileID: 4795639001102385541}
+  m_Layer: 0
+  m_Name: ParryCollider
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4610107555981437334
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987161423968088266}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.012042064, y: 0.0080278255, z: -0.000096678734, w: 0.9998953}
+  m_LocalPosition: {x: -0.045999914, y: -0.0039999746, z: 0.1869998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2332634973272543828}
+  m_LocalEulerAnglesHint: {x: 1.38, y: 0.92, z: 0}
+--- !u!65 &533934262696712741
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987161423968088266}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.18, y: 0.13, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &7009587436170140037
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987161423968088266}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &4795639001102385541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987161423968088266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eeca3fb5d238d249a2d56d493f90dd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnHitWithDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitWithCollision:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitWithTrigger:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1164587722990056228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1962,6 +2068,7 @@ Transform:
   - {fileID: 8465463014489526768}
   - {fileID: 5694010563268766961}
   - {fileID: 3948315754756312451}
+  - {fileID: 4610107555981437334}
   m_Father: {fileID: 1888952523268599529}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 160.9}
 --- !u!114 &7172137753809698839
@@ -1985,6 +2092,9 @@ MonoBehaviour:
   - {fileID: 1096266489850097035}
   AttachedVFX:
   - {fileID: 1152783595509256839}
+  canParry: 1
+  parryDuration: 0.5
+  parryCollider: {fileID: 987161423968088266}
   normalDamage: 2
   finisherDamage: 5
   maxCombo: 4
@@ -3059,6 +3169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerTransitionSpeed: 2
   transitionBetweenAttacks: 0.3
+  parryTransition: 0.2
   OnAttackAnimationComplete:
     m_PersistentCalls:
       m_Calls: []

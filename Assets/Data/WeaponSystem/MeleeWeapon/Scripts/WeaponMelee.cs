@@ -7,6 +7,9 @@ public class WeaponMelee : WeaponBase
     [SerializeField] protected AnimationEventForwarder animationEvent;
     [SerializeField] protected HitCollider[] hitColliders;
     [SerializeField] protected ParticleSystem[] AttachedVFX;
+    public bool canParry = false;
+    [SerializeField] protected float parryDuration = 0.5f;
+    [SerializeField] protected GameObject parryCollider;
 
     [Header("Attacks Settings")]
     [SerializeField] protected float normalDamage = 1f;
@@ -41,6 +44,7 @@ public class WeaponMelee : WeaponBase
     {
         base.Init();
         SetCollidersState(false);
+        if (canParry){parryCollider.SetActive(false);}
     }
 
     public override void Deselect(Animator animator)
@@ -70,5 +74,10 @@ public class WeaponMelee : WeaponBase
         {
             hitCollider.SetDamage(isFinisherAttack ? finisherDamage : normalDamage);
         }
+    }
+
+    public void Parry(bool isParry)
+    {
+        parryCollider.SetActive(isParry);
     }
 }

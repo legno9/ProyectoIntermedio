@@ -24,6 +24,7 @@ public class EntityWeaponManager : MonoBehaviour
     private Coroutine resetCombo;
     private bool isAttacking = false;
     private bool attackBuffered = false;
+    private bool parryBuffered = false;
     private int comboCount = 0;
     private AttackData currentAttack = new();
     private AttackData bufferedAttack = new();
@@ -130,6 +131,8 @@ public class EntityWeaponManager : MonoBehaviour
         {
             if (weapons[currentWeapon] is WeaponMelee)
             {
+                if (parryBuffered){return false;}
+                
                 if (!isAttacking)
                 {
                     CreateAttack(ref currentAttack, isPrimaryAttack);
@@ -292,6 +295,11 @@ public class EntityWeaponManager : MonoBehaviour
 
     private void ExecuteAttack()
     {   
+        if (animator.GetBool("IsParrying"))
+        {
+            return;
+        }
+
         if (comboCount >= currentAttack.weapon.maxCombo)
         {
             comboCount = 0;
@@ -314,13 +322,17 @@ public class EntityWeaponManager : MonoBehaviour
     private void OnAttackEnd()
     {   
         isAttacking = false;
-        
-        if (attackBuffered)
+
+        if (attackBuffered && !parryBuffered)
         {
             currentAttack = bufferedAttack;
             attackBuffered = false;
             ExecuteAttack();
             return;
+        }
+        else if (parryBuffered)
+        {
+            ExecuteParry(true);
         }
 
         resetCombo = StartCoroutine(ResetComboAfterDelay(currentAttack.weapon.delayResetCombo));
@@ -331,6 +343,34 @@ public class EntityWeaponManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         comboCount = 0;
+    }
+
+    public void ExecuteParry(bool isParrying)
+    {
+        if (animator.GetBool("IsParrying") && isParrying){return;}
+
+        WeaponMelee weaponMelee = GetCurrentWeapon() as WeaponMelee;
+        if (weaponMelee == null || !weaponMelee.canParry) return;
+
+        if (isParrying)
+        {
+            if (isAttacking)
+            {
+                parryBuffered = true;
+                return;
+            }
+            else
+            {
+                playerMeleeAnimation.ParryAnimation();
+            }
+        }
+        else
+        {
+            parryBuffered = false;
+            animator.SetBool("IsParrying", false);
+        }
+
+        weaponMelee.Parry(isParrying);
     }
 
 #endregion MeleeCombat
