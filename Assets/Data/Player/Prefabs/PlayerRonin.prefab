@@ -714,7 +714,7 @@ MonoBehaviour:
   normalDamage: 2
   finisherDamage: 5
   maxCombo: 4
-  delayResetCombo: 0.2
+  delayResetCombo: 0.5
   primaryAttacks:
   - {fileID: 7400000, guid: 0a857c45428403446b539b733d001145, type: 2}
   - {fileID: 7400000, guid: aa3e85b2bbcb029488e2b2e86615fc86, type: 2}
@@ -734,12 +734,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4610107555981437334}
-  - component: {fileID: 533934262696712741}
   - component: {fileID: 7009587436170140037}
   - component: {fileID: 4795639001102385541}
+  - component: {fileID: 5495018850786148626}
+  - component: {fileID: 3203575722643633894}
   m_Layer: 0
   m_Name: ParryCollider
-  m_TagString: Player
+  m_TagString: Parry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -752,34 +753,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 987161423968088266}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.012042064, y: 0.0080278255, z: -0.000096678734, w: 0.9998953}
-  m_LocalPosition: {x: -0.045999914, y: -0.0039999746, z: 0.1869998}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2332634973272543828}
-  m_LocalEulerAnglesHint: {x: 1.38, y: 0.92, z: 0}
---- !u!65 &533934262696712741
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 987161423968088266}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.18, y: 0.13, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 8853250708863375180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &7009587436170140037
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -828,6 +808,45 @@ MonoBehaviour:
   OnHitWithTrigger:
     m_PersistentCalls:
       m_Calls: []
+--- !u!136 &5495018850786148626
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987161423968088266}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.45
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3203575722643633894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987161423968088266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42767ec04ce098e41a129606840acf6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parryCollider: {fileID: 4795639001102385541}
+  playerCollider: {fileID: 7520661985390161884}
+  blockDamageMultiplier: 0.5
+  parryTime: 0.5
 --- !u!1 &1164587722990056228
 GameObject:
   m_ObjectHideFlags: 0
@@ -2068,7 +2087,6 @@ Transform:
   - {fileID: 8465463014489526768}
   - {fileID: 5694010563268766961}
   - {fileID: 3948315754756312451}
-  - {fileID: 4610107555981437334}
   m_Father: {fileID: 1888952523268599529}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 160.9}
 --- !u!114 &7172137753809698839
@@ -2673,6 +2691,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1888952523268599529}
+  - {fileID: 4610107555981437334}
   m_Father: {fileID: 4428800243910357415}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5205208356090317214
@@ -3167,7 +3186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8309c5a15828a4c997ca9dc03e791f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerTransitionSpeed: 2
+  layerTransitionSpeed: 1
   transitionBetweenAttacks: 0.3
   parryTransition: 0.2
   OnAttackAnimationComplete:

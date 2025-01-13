@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,18 +9,33 @@ public class HurtCollider : MonoBehaviour
     public UnityEvent<float, Vector3, Vector3> OnHitWithTrigger;
 
     //[SerializeField] private GameObject damageNumberPopUp;
+    private IHitter hitter;
 
-    public void NotifyCollision(IHitter hitter, Collision collision)
+    public void NotifyCollision(IHitter collisionHitter, Collision collision)
     {
+        Debug.Log(gameObject.name + " was collisioned by " + collisionHitter);
+        hitter = collisionHitter;
         OnHitWithDamage?.Invoke(hitter.GetDamage());
         OnHitWithCollision?.Invoke(hitter.GetDamage(), collision);
         //Instantiate(damageNumberPopUp, collision.contacts[0].point, Quaternion.identity).GetComponent<DamageNumberPopUp>().Initialize(hitter.GetDamage());
     }
 
-    public void NotifyTrigger(IHitter hitter, Vector3 triggerPos, Vector3 normal)
+    public void NotifyTrigger(IHitter triggerHitter, Vector3 triggerPos, Vector3 normal)
     {
+        Debug.Log(gameObject.name + " was trigger by " + triggerHitter);
+        hitter = triggerHitter;
         OnHitWithDamage?.Invoke(hitter.GetDamage());
         OnHitWithTrigger?.Invoke(hitter.GetDamage(), triggerPos, normal);
         //Instantiate(damageNumberPopUp, triggerPos, Quaternion.identity).GetComponent<DamageNumberPopUp>().Initialize(hitter.GetDamage());
+    }
+
+    public void NotifyDamage(IHitter hitter, float damage)
+    {
+        OnHitWithDamage?.Invoke(damage);
+    }
+
+    public IHitter GetHitter()
+    {
+        return hitter;
     }
 }

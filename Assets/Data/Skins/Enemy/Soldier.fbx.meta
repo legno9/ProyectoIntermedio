@@ -3,7 +3,32 @@ guid: fc55d39e722df7a44a675663a5b7ba4d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Characters_For_Andrew_lambert
+    second: {fileID: 2100000, guid: 344c7fb7af2f45e409221004bfef600a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 710d0151635b73c41aff4d5ffa8fdae2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: dcdf297188c5dd24880f00dcd92a4549, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: fbb409f532b053f43a410dce1610f70f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.004
+    second: {fileID: 2100000, guid: b46002948a85ac341a0301ec3ab8e89b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

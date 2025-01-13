@@ -4,7 +4,7 @@ public class AttackStateBehaviour : StateMachineBehaviour
     private readonly float exitTimePercentage = 0.9f;
     private bool ended = false;
     private float duration;
-    private readonly float bufferAttackTime = 1f;
+    private readonly float bufferAttackTime = 0.3f;
     private bool canBuffer;
     private PlayerMeleeAnimation playerAnimation;
 
@@ -16,7 +16,7 @@ public class AttackStateBehaviour : StateMachineBehaviour
         }
         duration = stateInfo.length;
         ended = false;
-        canBuffer = duration < bufferAttackTime * 2;
+        canBuffer = duration <= bufferAttackTime;
         if (canBuffer){playerAnimation.OnCanBuffer.Invoke();}
     }
 

@@ -56,6 +56,14 @@ PrefabInstance:
       propertyPath: muzzleFlash
       value: 
       objectReference: {fileID: 100006, guid: 8db559c1c66def443964cab349f28d6e, type: 3}
+    - target: {fileID: 5236759182997698549, guid: ac3936119aab9bb43adb9c92a3bcf18f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 898b27456360d084c9c2c67a93c454af, type: 2}
+    - target: {fileID: 5236759182997698549, guid: ac3936119aab9bb43adb9c92a3bcf18f, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f80071093c745d34da0923998372e923, type: 2}
     - target: {fileID: 8160964212699673402, guid: ac3936119aab9bb43adb9c92a3bcf18f, type: 3}
       propertyPath: m_Graph
       value: 
