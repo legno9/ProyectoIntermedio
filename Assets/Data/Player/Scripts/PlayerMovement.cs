@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour, IMovingAnimatable
 
     private CharacterController characterController;
     private Camera mainCamera;
+    [HideInInspector] public bool canMove = true;
 
     private void Awake()
     {
@@ -44,7 +45,10 @@ public class PlayerMovement : MonoBehaviour, IMovingAnimatable
     private void Update()
     {
         Vector3 compositeMovement = Vector3.zero;
-        compositeMovement += UpdateMovementOnPlane();
+        if (canMove)
+        {
+            compositeMovement += UpdateMovementOnPlane();
+        }
         compositeMovement += UpdateVerticalMovement();
 
         characterController.Move(compositeMovement);
@@ -59,7 +63,7 @@ public class PlayerMovement : MonoBehaviour, IMovingAnimatable
         Vector3 decelerationOnPlane = -velocityOnPlane * decelerationFactor * Time.deltaTime;
         velocityOnPlane += decelerationOnPlane;
 
-        //Aceleración y velocidad
+        //Aceleraciï¿½n y velocidad
         Vector3 acceleration = (mainCamera.transform.forward * rawStickValue.z) + (mainCamera.transform.right * rawStickValue.x);
         Vector3 projectedAcceleration = Vector3.ProjectOnPlane(acceleration, Vector3.up).normalized;
         Vector3 deltaAcceleration = projectedAcceleration * linearAcceleration * Time.deltaTime;
@@ -148,7 +152,7 @@ public class PlayerMovement : MonoBehaviour, IMovingAnimatable
 
     private void RotateToDesiredDirection(Vector3 desiredDirection)
     {
-        // Codigo que gira para coincidir con dirección
+        // Codigo que gira para coincidir con direcciï¿½n
         float angularDistance = Vector3.SignedAngle(transform.forward, desiredDirection, Vector3.up);
 
         if (Mathf.Abs(angularDistance) < 0.01f) return;

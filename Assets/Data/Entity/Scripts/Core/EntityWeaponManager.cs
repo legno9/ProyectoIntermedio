@@ -14,15 +14,10 @@ public class EntityWeaponManager : MonoBehaviour
     [Header("IK")]
     [SerializeField] private List<Rig> aimRigs = new();
 
-    [Header("Melee")]
-    [Tooltip("If true, the player will reset the attack combo when switching between light and heavy attacks")]
-    [SerializeField]bool resetAttackCombo = false;
-
     private struct AttackData
     {
         public WeaponMelee weapon;
-        public bool isLightAttack;
-        public int maxCombo;
+        public bool isPrimaryAttack;
     }
 
     private PlayerMeleeAnimation playerMeleeAnimation;
@@ -30,7 +25,6 @@ public class EntityWeaponManager : MonoBehaviour
     private bool isAttacking = false;
     private bool attackBuffered = false;
     private int comboCount = 0;
-    private bool currentAttackTypeIsLight;
     private AttackData currentAttack = new();
     private AttackData bufferedAttack = new();
     private Animator animator;
@@ -53,6 +47,11 @@ public class EntityWeaponManager : MonoBehaviour
     public float GetCurrentWeaponCooldown()
     {
         return currentWeapon != -1 ? weapons[currentWeapon].GetCurrentCooldown() : 1f;
+    }
+
+    public bool CanChangeWeapon()
+    {
+        return !isAttacking;
     }
 
     public (float, float, float) GetCurrentWeaponAmmo()
@@ -87,9 +86,9 @@ public class EntityWeaponManager : MonoBehaviour
     private void OnEnable()
     {
         playerMeleeAnimation?.OnAttackAnimationComplete.AddListener(OnAttackEnd);
+
         foreach (AnimationEventForwarder var in GetComponentsInChildren<AnimationEventForwarder>())
         {
-            // var.OnMeleeAttackEvent.AddListener(OnAttackEvent);
             var.OnReloadFinishedEvent.AddListener(OnReloadEvent);
         }
     }
@@ -100,15 +99,9 @@ public class EntityWeaponManager : MonoBehaviour
 
         foreach (AnimationEventForwarder var in GetComponentsInChildren<AnimationEventForwarder>())
         {
-            // var.OnMeleeAttackEvent.RemoveListener(OnAttackEvent);
             var.OnReloadFinishedEvent.AddListener(OnReloadEvent);
         }
     }
-
-    // private void OnAttackEvent()
-    // {
-    //     weaponsParent.GetComponentInChildren<WeaponMelee>().ActivateHitCollider();
-    // }
 
     private void OnReloadEvent()
     {
@@ -131,7 +124,7 @@ public class EntityWeaponManager : MonoBehaviour
         }
     }
 
-    public bool PerformAttack(bool isLightAttack)
+    public bool PerformAttack(bool isPrimaryAttack)
     {
         if (currentWeapon != -1)
         {
@@ -139,13 +132,12 @@ public class EntityWeaponManager : MonoBehaviour
             {
                 if (!isAttacking)
                 {
-                    CreateAttack(ref currentAttack, isLightAttack);
-                    currentAttackTypeIsLight = isLightAttack;
+                    CreateAttack(ref currentAttack, isPrimaryAttack);
                     ExecuteAttack();
                 }
                 else if (!attackBuffered && playerMeleeAnimation.CanBufferAttack())
                 {
-                    CreateAttack(ref bufferedAttack, isLightAttack);
+                    CreateAttack(ref bufferedAttack, isPrimaryAttack);
                     attackBuffered = true;
                 }
 
@@ -292,33 +284,24 @@ public class EntityWeaponManager : MonoBehaviour
     }
 
 #region MeleeCombat    
-    private void CreateAttack(ref AttackData attack, bool isLightAttack)
+    private void CreateAttack(ref AttackData attack, bool isPrimaryAttack)
     {
-        WeaponMelee weapon = (WeaponMelee)weapons[currentWeapon];
-        attack.weapon = weapon;
-        attack.isLightAttack = isLightAttack;
-        attack.maxCombo = isLightAttack ? weapon.LightComboCount() : weapon.HeavyComboCount();
+        attack.weapon = (WeaponMelee)weapons[currentWeapon];
+        attack.isPrimaryAttack = isPrimaryAttack;
     }
 
     private void ExecuteAttack()
     {   
-        if (currentAttack.maxCombo == 0){return;}
-
-        isAttacking = true;
-
-        if (resetAttackCombo && currentAttackTypeIsLight != currentAttack.isLightAttack)
+        if (comboCount >= currentAttack.weapon.maxCombo)
         {
             comboCount = 0;
         }
-        else
-        {
-            comboCount = comboCount >= currentAttack.maxCombo ? 0 : comboCount;
-        }
-        
-        playerMeleeAnimation.StartAttackAnimation(currentAttack.weapon, comboCount, currentAttack.isLightAttack);
-        currentAttack.weapon.Attacking(isAttacking);
 
-        currentAttackTypeIsLight = currentAttack.isLightAttack;
+        isAttacking = true;
+        
+        playerMeleeAnimation.StartAttackAnimation(currentAttack.weapon, comboCount, currentAttack.isPrimaryAttack);
+        currentAttack.weapon.PrepareForDamage(comboCount + 1 == currentAttack.weapon.maxCombo);
+
         comboCount++;
         
         if (resetCombo != null)
@@ -331,8 +314,6 @@ public class EntityWeaponManager : MonoBehaviour
     private void OnAttackEnd()
     {   
         isAttacking = false;
-        currentAttack.weapon.Attacking(isAttacking);
-
         
         if (attackBuffered)
         {
@@ -342,13 +323,13 @@ public class EntityWeaponManager : MonoBehaviour
             return;
         }
 
-        resetCombo = StartCoroutine(ResetComboAfterDelay());
+        resetCombo = StartCoroutine(ResetComboAfterDelay(currentAttack.weapon.delayResetCombo));
         playerMeleeAnimation.AttackSequenceEnded();
     }
 
-    private IEnumerator ResetComboAfterDelay()
+    private IEnumerator ResetComboAfterDelay(float delay)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(delay);
         comboCount = 0;
     }
 

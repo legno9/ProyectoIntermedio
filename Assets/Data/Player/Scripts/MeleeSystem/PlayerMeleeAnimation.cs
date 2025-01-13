@@ -6,18 +6,17 @@ using System.Collections.Generic;
 
 public class PlayerMeleeAnimation : MonoBehaviour
 {
-    [SerializeField, Range(1f, 10f)] public float layerTransitionSpeed = 5f;
+    [SerializeField, Range(1f, 10f)] private float layerTransitionSpeed = 5f;
+    [SerializeField] private float transitionBetweenAttacks = 0.25f;
     [HideInInspector] public UnityEvent OnAttackAnimationComplete = new ();
     [HideInInspector] public UnityEvent OnCanBuffer = new ();
     private Animator animator;
-    private AnimatorOverrideController lightAttacksAOC;
-    private AnimatorOverrideController heavyAttacksAOC;
-    private AnimatorOverrideController currentAOC;
+    private AnimatorOverrideController newAttacksAOC;
+    private PlayerMovement playerMovement;
     private const int movementLayer = 0;
     private const int attackLayer = 1;
     private float attackWeight = 0f;
     private bool canBuffer = false;
-    private bool lastAttackWasLight = true;
     
     private readonly string[] AttackAnims = new string[]
     { 
@@ -30,6 +29,7 @@ public class PlayerMeleeAnimation : MonoBehaviour
     private void Awake() 
     {
         animator = GetComponentInChildren<Animator>();
+        playerMovement = GetComponent<PlayerMovement>();
         OnCanBuffer.AddListener(() => canBuffer = true);
     }
     
@@ -37,30 +37,32 @@ public class PlayerMeleeAnimation : MonoBehaviour
     {
         if (CanMove())
         {
+            playerMovement.canMove = true;
             if (animator.GetLayerWeight(attackLayer) > 0f)
             {
                 TransitionToMovementLayer();
             }
         }
-        else { attackWeight = 0f;}
+        else 
+        { 
+            playerMovement.canMove = false;
+            attackWeight = 0f;
+        }
     }
 
     public void WeaponChanged(AnimatorOverrideController animatorBase)
     {
-        lightAttacksAOC = new(animatorBase);
-        lightAttacksAOC.name = "LightAttacksAOC";
-
-        heavyAttacksAOC = new(animatorBase);
-        heavyAttacksAOC.name = "HeavyAttacksAOC";
+        newAttacksAOC = new(animatorBase){name = "NewAttacksAOC"};
 
         List<KeyValuePair<AnimationClip, AnimationClip>> overrides = new();
         animatorBase.GetOverrides(overrides);
 
         foreach (var pair in overrides)
         {
-            lightAttacksAOC[pair.Key] = pair.Value;
-            heavyAttacksAOC[pair.Key] = pair.Value;
+            newAttacksAOC[pair.Key] = pair.Value;
         }
+
+        animator.runtimeAnimatorController = newAttacksAOC;
     }
 
     private void TransitionToMovementLayer()
@@ -75,7 +77,7 @@ public class PlayerMeleeAnimation : MonoBehaviour
         }
     }
 
-    public void StartAttackAnimation(WeaponMelee weapon, int attackIndex, bool isLightAttack = true)
+    public void StartAttackAnimation(WeaponMelee weapon, int attackIndex, bool isPrimaryAttack)
     {
         if (animator.GetBool("IsAttacking") || !animator.GetBool("CanAttack"))
         {
@@ -94,47 +96,24 @@ public class PlayerMeleeAnimation : MonoBehaviour
             return;
         }
         
-        AnimationClip targetAnimation = isLightAttack ? 
-            weapon.lightAttacks[attackIndex] : weapon.heavyAttacks[attackIndex];
+        AnimationClip targetAnimation = isPrimaryAttack ? 
+            weapon.primaryAttacks[attackIndex] : weapon.secondaryAttacks[attackIndex];
         
         string attackAnimName = AttackAnims[attackIndex];
-        
-        currentAOC = isLightAttack ? lightAttacksAOC : heavyAttacksAOC;
-        
-        if (!ReferenceEquals(currentAOC[attackAnimName], targetAnimation))
+                
+        if (!ReferenceEquals(newAttacksAOC[attackAnimName], targetAnimation))
         {
-            currentAOC[attackAnimName] = targetAnimation;
-        }
-        
-        if (animator.GetCurrentAnimatorClipInfo(1).Length > 0)
-        {
-            if (animator.GetCurrentAnimatorStateInfo(1).IsName(attackAnimName))
-            {
-                StartCoroutine(ResetAndPlayAnimation(attackAnimName));
-                return;
-            }
+            newAttacksAOC[attackAnimName] = targetAnimation;
+            
         }
 
-        animator.runtimeAnimatorController = currentAOC;
-
-        if (lastAttackWasLight == isLightAttack)
-        {
-            animator.CrossFade(attackAnimName, 0.1f);
-        }
-        else 
-        {
-            animator.Play(attackAnimName);
-            lastAttackWasLight = isLightAttack;
-        }
+        StartCoroutine(PlayAfterOneFrame(attackAnimName));
     }
 
-    private IEnumerator ResetAndPlayAnimation(string attackAnimName)
+    IEnumerator PlayAfterOneFrame(string clip)
     {
-        animator.Play("Idle");
         yield return null;
-        animator.runtimeAnimatorController = currentAOC;
-        yield return null;
-        animator.Play(attackAnimName);
+        animator.CrossFade(clip, transitionBetweenAttacks);
     }
 
     public bool CanMove()

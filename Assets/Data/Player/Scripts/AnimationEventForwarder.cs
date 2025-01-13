@@ -6,6 +6,8 @@ public class AnimationEventForwarder : MonoBehaviour
     [HideInInspector] public UnityEvent OnMeleeAttackEvent;
     [HideInInspector] public UnityEvent OnAttackFinishedEvent;
     [HideInInspector] public UnityEvent OnReloadFinishedEvent;
+    [HideInInspector] public UnityEvent<int> OnMeleeAttackIndexEvent;
+    [HideInInspector] public UnityEvent<int> OnAttackFinishedIndexEvent;
 
     public void MeleeWeaponAttack()
     {
@@ -20,5 +22,15 @@ public class AnimationEventForwarder : MonoBehaviour
     public void ReloadingFinished()
     {
         OnReloadFinishedEvent?.Invoke();
+    }
+
+    public void MeleeWeaponAttackWithIndex(int index)
+    {
+        OnMeleeAttackIndexEvent?.Invoke(index);
+    }
+
+    public void AttackFinishedIndexEvent(int index)
+    {
+        OnAttackFinishedIndexEvent?.Invoke(index);
     }
 }

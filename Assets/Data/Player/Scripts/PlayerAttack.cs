@@ -7,7 +7,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private AudioClipList cantReloadSounds;
     private EntityWeaponManager weaponManager;
     private bool attacking = false;
-    private bool isLigtAttack = false;
+    private bool isPrimaryAttack = false;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (attacking)
         {
-            weaponManager.PerformAttack(isLigtAttack);
+            weaponManager.PerformAttack(isPrimaryAttack);
         }
     }
 
@@ -28,8 +28,8 @@ public class PlayerAttack : MonoBehaviour
         {
             if (CheckMeleeAttack())
             {
-                isLigtAttack = true;
-                weaponManager.PerformAttack(isLigtAttack);
+                isPrimaryAttack = true;
+                weaponManager.PerformAttack(isPrimaryAttack);
                 return;
             }
             
@@ -41,12 +41,12 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void OnHeavyAttack(InputValue value)
+    private void OnSecondaryAttack(InputValue value)
     {
         if (CheckMeleeAttack())
         {
-            isLigtAttack = false;
-            weaponManager.PerformAttack(isLigtAttack);
+            isPrimaryAttack = false;
+            weaponManager.PerformAttack(isPrimaryAttack);
             return;
         }
     }
@@ -60,19 +60,25 @@ public class PlayerAttack : MonoBehaviour
     {
         if (value.Get<float>() == 1f)
         {
-            if (!weaponManager.PerformReload())
+            if (!CheckMeleeAttack())
             {
-                cantReloadSounds.PlayAtPointRandom(transform.position);
+                if (!weaponManager.PerformReload())
+                {
+                    cantReloadSounds.PlayAtPointRandom(transform.position);
+                }
             }
         }
     }
 
     private void OnNextPrevWeapon(InputValue value)
     {
-        Vector2 readValue = value.Get<Vector2>();
-        bool mustSelectNextWeapon = readValue.y > 0;
+        if (!attacking && weaponManager.CanChangeWeapon())
+        {
+            Vector2 readValue = value.Get<Vector2>();
+            bool mustSelectNextWeapon = readValue.y > 0;
 
-        switchWeaponsSounds.PlayAtPointRandom(transform.position);
-        weaponManager.PerformChangeToNextOrPrevWeapon(mustSelectNextWeapon);
+            switchWeaponsSounds.PlayAtPointRandom(transform.position);
+            weaponManager.PerformChangeToNextOrPrevWeapon(mustSelectNextWeapon);
+        }
     }
 }
