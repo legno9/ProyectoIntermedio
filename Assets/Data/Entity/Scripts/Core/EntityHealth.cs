@@ -113,6 +113,8 @@ public class EntityHealth : MonoBehaviour
                 OnDeath?.Invoke();
                 deathSounds.PlayAtPointRandom(transform.position);
             }
+
+            damageToDeal.Clear();
         }
     }
 
