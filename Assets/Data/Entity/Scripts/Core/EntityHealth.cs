@@ -21,6 +21,9 @@ public class EntityHealth : MonoBehaviour
     [HideInInspector] public UnityEvent OnDeath;
     [HideInInspector] public UnityEvent OnDamaged;
 
+    private List<float> damageToDeal;
+    private bool canBeDamaged = true;
+
     #region Debug
     // [SerializeField] private float debugLifeToAdd = 0f;
     [SerializeField] private float debugLifeToSubtract = 0f;
@@ -60,24 +63,7 @@ public class EntityHealth : MonoBehaviour
             return;
         }
 
-        currentInvulnerabilityTime = invulnerabilityTime;
-        Instantiate(damageNumberPopUp, transform.position + Vector3.up * 1.5f * transform.localScale.y, Quaternion.identity).GetComponent<DamageNumberPopUp>().Initialize(damage);
-
-        currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
-        OnHealthChanged?.Invoke(currentHealth, damage);
-        OnDamaged?.Invoke();
-        timeSinceLastDamage = 0f;
-
-        if (Mathf.Sign(damage) == 1)
-        {
-            hurtSounds.PlayAtPointRandom(transform.position);
-        }
-
-        if (currentHealth <= 0f)
-        {
-            OnDeath?.Invoke();
-            deathSounds.PlayAtPointRandom(transform.position);
-        }
+        damageToDeal.Add(damage);
     }
 
     private void OnDisable()
@@ -97,6 +83,42 @@ public class EntityHealth : MonoBehaviour
                 RecoverHealth(passiveRegenRate * Time.deltaTime);
             }
         }
+    }
+
+    private void LateUpdate()
+    {
+        if (!canBeDamaged)
+        {
+            canBeDamaged = true;
+            return;
+        }
+
+        if (damageToDeal.Count > 0)
+        {
+            foreach (var damage in damageToDeal)
+            {
+                currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
+                OnHealthChanged?.Invoke(currentHealth, damage);
+                OnDamaged?.Invoke();
+                Instantiate(damageNumberPopUp, transform.position + Vector3.up * 1.5f * transform.localScale.y, Quaternion.identity).GetComponent<DamageNumberPopUp>().Initialize(damage);
+            }
+
+            currentInvulnerabilityTime = invulnerabilityTime;
+            timeSinceLastDamage = 0f;
+
+            hurtSounds.PlayAtPointRandom(transform.position);
+
+            if (currentHealth <= 0f)
+            {
+                OnDeath?.Invoke();
+                deathSounds.PlayAtPointRandom(transform.position);
+            }
+        }
+    }
+
+    public void HitWasParried()
+    {
+        canBeDamaged = false;
     }
 
     public void RecoverHealth(float amount)
