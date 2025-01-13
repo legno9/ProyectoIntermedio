@@ -9185,10 +9185,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3203575722643633894, guid: 0207ad621462af74197f728a55859cf4, type: 3}
-      propertyPath: parryTime
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 7552674652641359088, guid: 0207ad621462af74197f728a55859cf4, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0.053390343
