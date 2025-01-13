@@ -16,6 +16,7 @@ public class EntityHealth : MonoBehaviour
     [SerializeField] private float invulnerabilityTime = 0.5f;
     private float currentInvulnerabilityTime = 0f;
     [SerializeField] private GameObject damageNumberPopUp;
+    [SerializeField] private bool showDamageNumbers = true;
 
     [HideInInspector] public UnityEvent<float, float> OnHealthChanged; // current health and health change
     [HideInInspector] public UnityEvent OnDeath;
@@ -100,7 +101,10 @@ public class EntityHealth : MonoBehaviour
                 currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
                 OnHealthChanged?.Invoke(currentHealth, damage);
                 OnDamaged?.Invoke();
-                Instantiate(damageNumberPopUp, transform.position + Vector3.up * 1.5f * transform.localScale.y, Quaternion.identity).GetComponent<DamageNumberPopUp>().Initialize(damage);
+                if (showDamageNumbers)
+                {
+                    Instantiate(damageNumberPopUp, transform.position + Vector3.up * 1.5f * transform.localScale.y, Quaternion.identity).GetComponent<DamageNumberPopUp>().Initialize(damage);
+                }
             }
 
             currentInvulnerabilityTime = invulnerabilityTime;
