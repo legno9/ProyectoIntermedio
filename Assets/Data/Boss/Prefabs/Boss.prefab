@@ -7784,10 +7784,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  flinchMeterMax: 100
-  strongAttackThreshold: 10
-  parryDamage: 25
-  knockedDownDuration: 5
+  flinchMeterMax: 30
+  strongAttackThreshold: 5
+  parryDamage: 15
+  knockedDownDuration: 3
   axeAttackSounds:
     volume: 1
     pitch: 1
