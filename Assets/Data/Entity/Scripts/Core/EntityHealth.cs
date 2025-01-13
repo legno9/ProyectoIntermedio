@@ -21,7 +21,7 @@ public class EntityHealth : MonoBehaviour
     [HideInInspector] public UnityEvent OnDeath;
     [HideInInspector] public UnityEvent OnDamaged;
 
-    private List<float> damageToDeal;
+    private List<float> damageToDeal = new();
     private bool canBeDamaged = true;
 
     #region Debug
