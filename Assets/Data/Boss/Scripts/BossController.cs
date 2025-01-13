@@ -207,6 +207,11 @@ public class BossController : MonoBehaviour, IMovingAnimatable
 
     private void AddFlinchAmount(float damage)
     {
+        if (isKnockedDown)
+        {
+            return;
+        }
+
         float flichAmount = damage >= strongAttackThreshold ? damage * 2 : damage;
         flinchMeter = Mathf.Clamp(flinchMeter + damage, 0f, flinchMeterMax);
 
