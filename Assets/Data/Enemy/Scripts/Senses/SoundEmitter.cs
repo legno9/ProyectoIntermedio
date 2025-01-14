@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum SoundRadius
 {
-    small = 2,
+    small = 5,
     medium = 7,
     large = 15
 }
