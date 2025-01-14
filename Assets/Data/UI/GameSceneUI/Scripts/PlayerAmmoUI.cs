@@ -11,7 +11,7 @@ public class PlayerAmmoUI : MonoBehaviour
     private void Update()
     {
         (float currentAmmo, float maxAmmo, float ammoInReserve) = entityWeaponManager.GetCurrentWeaponAmmo();
-        currentAmmoText.text = currentAmmo.ToString() + "/" + maxAmmo.ToString();
-        reserveAmmoText.text = ammoInReserve.ToString();
+        currentAmmoText.text = "Magazine: " + currentAmmo.ToString() + "/" + maxAmmo.ToString();
+        reserveAmmoText.text = "Ammo: " + ammoInReserve.ToString();
     }
 }

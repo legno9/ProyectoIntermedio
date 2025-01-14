@@ -208,7 +208,7 @@ Transform:
   m_GameObject: {fileID: 1247684002812149393}
   serializedVersion: 2
   m_LocalRotation: {x: 0.31291625, y: -0.47078687, z: 0.4349963, w: 0.7008719}
-  m_LocalPosition: {x: 0.19245873, y: 1.220526, z: 0.29685593}
+  m_LocalPosition: {x: 0.19245869, y: 1.220526, z: 0.2968561}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -983,7 +983,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1238,6 +1238,7 @@ MonoBehaviour:
   passiveRegenDelay: 10
   invulnerabilityTime: 0
   damageNumberPopUp: {fileID: 1275253581603887254, guid: 346d432ab48727b4f8407a1f67702941, type: 3}
+  showDamageNumbers: 1
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1247,6 +1248,7 @@ MonoBehaviour:
   OnDamaged:
     m_PersistentCalls:
       m_Calls: []
+  blockDamageMultiplier: 1
   debugLifeToSubtract: 2
   debugAplyLifeChange: 0
 --- !u!114 &5900981060325686139
@@ -1483,8 +1485,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5557770574155050712}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.31291625, y: -0.4707872, z: 0.4349967, w: 0.7008714}
-  m_LocalPosition: {x: 0.19245866, y: 1.2205259, z: 0.2968557}
+  m_LocalRotation: {x: 0.31291625, y: -0.4707872, z: 0.43499666, w: 0.7008714}
+  m_LocalPosition: {x: 0.19245867, y: 1.2205259, z: 0.29685593}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

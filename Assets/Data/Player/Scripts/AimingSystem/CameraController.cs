@@ -2,9 +2,11 @@ using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 [RequireComponent(typeof(PlayerInput))]
 public class CameraController : MonoBehaviour
@@ -48,6 +50,8 @@ public class CameraController : MonoBehaviour
         currentOrbitalFollow = cam1;
         currentCam = cam1.GetComponent<CinemachineCamera>();
         mainCamera = Camera.main;
+        //cam1.GetComponent<CinemachineCamera>().LookAt = lookAtTransform;
+        cam2.GetComponent<CinemachineCamera>().LookAt = lookAtTransform;
 
         lookAtTransform.position = notAimingLookAtTransform.position;
         currentLockOnTransform = notAimingLookAtTransform;
@@ -55,11 +59,11 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (isLockedOn)
+        if (IsAiming)
         {
-            Vector3 targetDirection = Vector3.ProjectOnPlane(lookAtTransform.position - mainCamera.transform.position, Vector3.up);
-            float angleToTarget = Vector3.SignedAngle(Vector3.forward, targetDirection, Vector3.up);
-            currentOrbitalFollow.HorizontalAxis.Value = angleToTarget;
+            Vector3 targetdirection = Vector3.ProjectOnPlane(lookAtTransform.position - mainCamera.transform.position, Vector3.up);
+            float angletotarget = Vector3.SignedAngle(Vector3.forward, targetdirection, Vector3.up);
+            currentOrbitalFollow.HorizontalAxis.Value = angletotarget;
         }
 
         if (isSwitchingLockOnTarget)
@@ -89,13 +93,20 @@ public class CameraController : MonoBehaviour
         if (playerWeaponManager.GetCurrentWeaponIsRanged())
         {
             aimForwardRig.weight = 1;
-            float value = currentOrbitalFollow.VerticalAxis.Value;
+            if (isLockedOn)
+            {
+                objectInFrontHolder.rotation = Quaternion.LookRotation(lookAtTransform.position - objectInFrontHolder.position);
+            }
+            else
+            {
+                float value = currentOrbitalFollow.VerticalAxis.Value;
 
-            objectInFrontHolder.localEulerAngles = new Vector3(
-                Mathf.Lerp(-37, 27, Mathf.Clamp01((value - -10) / (45 - -10))),
-                objectInFrontHolder.localRotation.y,
-                objectInFrontHolder.localRotation.z
-            );
+                objectInFrontHolder.localEulerAngles = new Vector3(
+                    Mathf.Lerp(-37, 17, Mathf.Clamp01((value - -10) / (45 - -10))),
+                    objectInFrontHolder.localRotation.y,
+                    objectInFrontHolder.localRotation.z
+                );
+            }
         }
         else
         {
@@ -121,7 +132,7 @@ public class CameraController : MonoBehaviour
 
     private void EnableAiming()
     {
-        cam1.gameObject.SetActive(false);
+        //cam1.gameObject.SetActive(false);
         cam2.gameObject.SetActive(true);
         cam2.HorizontalAxis.Value = cam1.HorizontalAxis.Value;
         cam2.VerticalAxis.Value = cam1.VerticalAxis.Value;

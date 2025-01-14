@@ -1212,7 +1212,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tittle of the game
+  m_text: Katanas and Chaos
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 227ec8480f7bbfd4e8535f91fcf46339, type: 2}
   m_sharedMaterial: {fileID: 4746938562021015451, guid: 227ec8480f7bbfd4e8535f91fcf46339, type: 2}
