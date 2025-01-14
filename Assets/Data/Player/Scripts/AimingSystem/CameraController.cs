@@ -59,9 +59,18 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!isLockedOn)
+        if (!isLockedOn && IsAiming)
         {
             LockOnToNextTarget();
+        }
+
+        if (isLockedOn)
+        {
+            transitionTime = 0.25f;
+        }
+        else
+        {
+            transitionTime = 0.001f;
         }
 
         if (IsAiming)
