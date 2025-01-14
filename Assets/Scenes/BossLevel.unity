@@ -7412,6 +7412,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6713246654863858744, guid: abdfb34974e42394f93bcd63e778cbab, type: 3}
+      propertyPath: m_text
+      value: Brute, the Necksplitter
+      objectReference: {fileID: 0}
     - target: {fileID: 6877930712607446617, guid: abdfb34974e42394f93bcd63e778cbab, type: 3}
       propertyPath: entityLife
       value: 
@@ -10225,24 +10229,28 @@ PrefabInstance:
       value: 0.11634374
       objectReference: {fileID: 0}
     - target: {fileID: 5586546719955142693, guid: 0207ad621462af74197f728a55859cf4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586546719955142693, guid: 0207ad621462af74197f728a55859cf4, type: 3}
       propertyPath: m_LocalPosition.z
       value: -1.2407465
       objectReference: {fileID: 0}
     - target: {fileID: 5586546719955142693, guid: 0207ad621462af74197f728a55859cf4, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.998698
+      value: 0.860027
       objectReference: {fileID: 0}
     - target: {fileID: 5586546719955142693, guid: 0207ad621462af74197f728a55859cf4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.020463014
+      value: 0.40349895
       objectReference: {fileID: 0}
     - target: {fileID: 5586546719955142693, guid: 0207ad621462af74197f728a55859cf4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.04672106
+      value: -0.28274503
       objectReference: {fileID: 0}
     - target: {fileID: 5586546719955142693, guid: 0207ad621462af74197f728a55859cf4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00095730036
+      value: 0.1326555
       objectReference: {fileID: 0}
     - target: {fileID: 5936836987232608489, guid: 0207ad621462af74197f728a55859cf4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13602,9 +13610,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 1
+  near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 30
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -13630,8 +13638,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085314653}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.012098067, y: 0.70700336, z: -0.012098069, w: 0.70700324}
-  m_LocalPosition: {x: 9.912681, y: 2.308464, z: -16.2651}
+  m_LocalRotation: {x: 0.3697546, y: 0.4455154, z: -0.2090225, w: 0.7881036}
+  m_LocalPosition: {x: 11.59993, y: 2.4571633, z: -16.2651}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -84,7 +84,7 @@ public class WeaponRanged : WeaponBase
 
     public override bool PerformAttack()
     {
-        if (Time.time - lastAttackTime > 1f / attacksPerSecond && currentAmmo > 0)
+        if (Time.time - lastAttackTime > 1f / attacksPerSecond && currentAmmo > 0 && !isReloading)
         {
             lastAttackTime = Time.time;
             Shoot();
