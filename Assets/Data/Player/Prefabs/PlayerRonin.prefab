@@ -3096,7 +3096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponsParent: {fileID: 1888952523268599529}
-  startingWeaponIndex: 0
+  startingWeaponIndex: -1
   aimRigs:
   - {fileID: 6961676490790849524}
   - {fileID: 0}
