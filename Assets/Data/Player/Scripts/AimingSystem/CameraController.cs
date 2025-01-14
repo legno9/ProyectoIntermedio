@@ -59,6 +59,11 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (!isLockedOn)
+        {
+            LockOnToNextTarget();
+        }
+
         if (IsAiming)
         {
             Vector3 targetdirection = Vector3.ProjectOnPlane(lookAtTransform.position - mainCamera.transform.position, Vector3.up);
